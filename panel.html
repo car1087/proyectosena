@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <title>Panel - PILD</title>
+</head>
+<body>
+  <main class="login">
+    <!-- Reutilizamos la misma grilla para mantener consistencia visual -->
+    <section class="login__left">
+      <svg class="icon-hero" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="200" height="200" fill="none" />
+        <g fill="none" stroke="var(--azulceleste)" stroke-width="8" stroke-linecap="round">
+          <path d="M20 50 V30 Q20 20 30 20 H50" />
+          <path d="M150 20 H170 Q180 20 180 30 V50" />
+          <path d="M180 150 V170 Q180 180 170 180 H150" />
+          <path d="M50 180 H30 Q20 180 20 170 V150" />
+        </g>
+        <g transform="translate(100,100)">
+          <g transform="translate(0,-12) scale(1)">
+            <path d="M0 -35 C-20 -35 -40 -15 -40 5 C-40 25 -15 45 0 65 C15 45 40 25 40 5 C40 -15 20 -35 0 -35 Z" fill=var(--azulceleste)></path>
+          </g>
+          <rect x="-60" y="-60" width="120" height="122" fill="none" stroke=var(--azulceleste) stroke-width="10" rx="15" ry="15" />
+          <g fill="var(--grisclaro)">
+            <rect x="-6" y="-20" width="12" height="36" rx="2" />
+            <rect x="-18" y="-13" width="36" height="12" rx="2" />
+          </g>
+        </g>
+      </svg>
+    </section>
+
+    <section class="login__right">
+      <h1 class="brand-title">Panel</h1>
+      <div class="auth-form" style="max-width: 520px; text-align: left;">
+        <p style="margin-bottom: 10px;">Has iniciado sesión como:</p>
+        <div class="input" style="cursor: default; user-select: text;">
+          <span id="userEmail">usuario@ejemplo.com</span>
+        </div>
+
+        <div class="auth-links" style="margin-top: 18px;">
+          <a href="index.html">Volver al inicio de sesión</a>
+        </div>
+
+        <button id="logoutBtn" class="button" type="button" style="margin-top: 18px;">Cerrar Sesión</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
