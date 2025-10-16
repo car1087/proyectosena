@@ -1,20 +1,19 @@
+// ====== Mostrar el nombre del usuario ======
 document.addEventListener("DOMContentLoaded", () => {
-  const logoutBtn = document.getElementById("logoutBtn");
+  const nombreUsuario = localStorage.getItem("nombreUsuario");
+  const spanUsuario = document.getElementById("nombreUsuario");
 
-  logoutBtn.addEventListener("click", () => {
-    const confirmLogout = confirm("¿Seguro que deseas cerrar sesión?");
-    if (confirmLogout) {
-      alert("Sesión cerrada correctamente.");
-      window.location.href = "login.html"; // o la ruta que desees
-    }
-  });
+  if (nombreUsuario) {
+    spanUsuario.textContent = nombreUsuario;
+  } else {
+    spanUsuario.textContent = "Invitado";
+  }
+});
 
-  // Ejemplo: destacar el menú activo
-  const menuItems = document.querySelectorAll(".menu li");
-  menuItems.forEach(item => {
-    item.addEventListener("click", () => {
-      menuItems.forEach(i => i.classList.remove("active"));
-      item.classList.add("active");
-    });
-  });
+// ====== Funcionalidad del botón hamburguesa ======
+const toggleBtn = document.getElementById("toggle-btn");
+const sidebar = document.getElementById("sidebar");
+
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("active");
 });
