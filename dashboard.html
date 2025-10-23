@@ -3,36 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard</title>
+  <title>Dashboard PILD</title>
   <link rel="stylesheet" href="dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="dashboard">
-    <!-- Barra lateral -->
+    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h2>Mi Panel</h2>
-        <button class="toggle-btn" id="toggle-btn">☰</button>
+        <div class="logo">
+          <img src="assets/img/img/LOGO_PILD.png" alt="Logo PILD" class="logo-pild">
+          <div class="logo-text">
+            <h1>PILD</h1>
+            <p>Personal Identification and Localization Devices</p>
+          </div>
+        </div>
       </div>
+
       <ul class="menu">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Usuarios</a></li>
-        <li><a href="#">Reportes</a></li>
-        <li><a href="#">Configuración</a></li>
+        <li><a href="#"><span class="icon">🏠</span> Inicio</a></li>
+        <li><a href="#"><span class="icon">🩺</span> Mi información médica</a></li>
+        <li><a href="#"><span class="icon">👥</span> Contactos de emergencia</a></li>
+        <li><a href="#"><span class="icon">🔳</span> Mi dispositivo QR</a></li>
+        <li><a href="#"><span class="icon">⚙️</span> Ajustes de cuenta</a></li>
       </ul>
     </aside>
 
     <!-- Contenido principal -->
     <main class="main-content">
       <header class="topbar">
-        <h1>Hola, <span id="nombreUsuario"></span></h1>
+        <button class="toggle-btn" id="toggle-btn">☰</button>
+        <div class="user-panel">
+          <a href="#" class="logout">Cerrar sesión</a>
+          <div class="user-avatar">
+            <div class="avatar"></div>
+            <span class="user-role">Rol Usuario</span>
+          </div>
+        </div>
       </header>
+
       <section class="content">
-        <!-- Aquí irá el contenido principal del dashboard -->
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Buscar en el panel...">
+          <button id="search-btn">🔍</button>
+        </div>
+
+        <div class="welcome-section">
+          <h2>Hola, <span id="nombreUsuario"></span></h2>
+          <p>Tu información está actualizada; última actualización hace 1 semana.</p>
+        </div>
+
+        <div class="cards-container" id="cards-container">
+          <div class="card" data-title="Historial médico" data-desc="Ver y editar enfermedades, alergias, tipo de sangre, etc.">
+            <div class="card-icon">🩺</div>
+            <h3>Historial médico</h3>
+            <p>Ver y editar enfermedades, alergias, tipo de sangre, etc.</p>
+            <button class="btn">Ver</button>
+          </div>
+
+          <div class="card" data-title="QR Activo" data-desc="Tu QR está vinculado y funcionando correctamente.">
+            <div class="card-icon">🔳</div>
+            <h3>QR Activo</h3>
+            <p>Tu QR está vinculado y funcionando correctamente.</p>
+            <button class="btn">Ver</button>
+          </div>
+
+          <div class="card" data-title="Notificaciones recientes" data-desc="Última vez que tu código fue escaneado.">
+            <div class="card-icon">🔔</div>
+            <h3>Notificaciones recientes</h3>
+            <p>Última vez que tu código fue escaneado.</p>
+            <button class="btn">Ver</button>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <p>Tus datos están encriptados y protegidos de acuerdo a la ley.</p>
+        </footer>
       </section>
     </main>
   </div>
 
- <script src="dashboard.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
+
