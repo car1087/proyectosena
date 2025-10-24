@@ -434,7 +434,7 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   .topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -448,17 +448,31 @@ body {
   }
 
   .search-bar {
-    max-width: 100%;
+    max-width: 220px;
+    padding: 0.3rem 0.4rem;
+    margin: -1; /* lo centra */
+    display: flex;
+    justify-content: center;
+  }
+
+  .search-bar input {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .search-bar button {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
   }
 }
 /* ==============================
    Ajustes móviles específicos
 ============================== */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   /* Avatar más pequeño en móviles */
   .user-avatar .avatar {
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
     border-width: 3px;
   }
 .user-avatar {
@@ -477,6 +491,82 @@ body {
     position: relative;
     left: 50%;
     transform: translate(-170%,-40px);
+    margin-top: 0.5rem;
+    background-color: rgba(255,255,255,0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .user-panel {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .topbar {
+   height: 70px;
+  padding: 0.5rem 1rem; /* también ajustamos el relleno */
+    text-align: center;
+  }
+}
+@media (max-width: 600px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .user-panel {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .search-bar {
+    max-width: 220px;
+    padding: 0.3rem 0.4rem;
+    margin: -1; /* lo centra */
+    display: flex;
+    justify-content: center;
+  }
+
+  .search-bar input {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .search-bar button {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+/* ==============================
+   Ajustes móviles específicos
+============================== */
+@media (max-width: 600px) {
+  /* Avatar más pequeño en móviles */
+  .user-avatar .avatar {
+    width: 120px;
+    height: 120px;
+    border-width: 3px;
+  }
+.user-avatar {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  position: relative;
+  transform: translate(210%, -110px); /* mueve a la izquierda y abajo */
+}
+  .user-role {
+    font-size: 0.8rem;
+  }
+
+  /* Centrar "Cerrar sesión" en el header móvil */
+  .logout {
+    position: relative;
+    left: 50%;
+    transform: translate(-260%,-40px);
     margin-top: 0.5rem;
     background-color: rgba(255,255,255,0.2);
     padding: 0.4rem 1rem;
