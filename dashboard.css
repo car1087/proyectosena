@@ -451,3 +451,48 @@ body {
     max-width: 100%;
   }
 }
+/* ==============================
+   Ajustes móviles específicos
+============================== */
+@media (max-width: 600px) {
+  /* Avatar más pequeño en móviles */
+  .user-avatar .avatar {
+    width: 80px;
+    height: 80px;
+    border-width: 3px;
+  }
+.user-avatar {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  position: relative;
+  transform: translate(220%, -115px); /* mueve a la izquierda y abajo */
+}
+  .user-role {
+    font-size: 0.8rem;
+  }
+
+  /* Centrar "Cerrar sesión" en el header móvil */
+  .logout {
+    position: relative;
+    left: 50%;
+    transform: translate(-170%,-40px);
+    margin-top: 0.5rem;
+    background-color: rgba(255,255,255,0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .user-panel {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .topbar {
+   height: 70px;
+  padding: 0.5rem 1rem; /* también ajustamos el relleno */
+    text-align: center;
+  }
+}
