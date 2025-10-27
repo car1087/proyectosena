@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard PILD</title>
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="dashboard.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div class="dashboard">
-    <!-- Sidebar -->
+    
+    <!-- 🧭 Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <div class="logo">
@@ -21,17 +25,20 @@
         </div>
       </div>
 
+      <!-- 📋 Menú lateral -->
       <ul class="menu">
-        <li><a href="#"><span class="icon">🏠</span> Inicio</a></li>
-        <li><a href="#"><span class="icon">🩺</span> Mi información médica</a></li>
-        <li><a href="#"><span class="icon">👥</span> Contactos de emergencia</a></li>
-        <li><a href="#"><span class="icon">🔳</span> Mi dispositivo QR</a></li>
-        <li><a href="#"><span class="icon">⚙️</span> Ajustes de cuenta</a></li>
+        <li><a href="#" onclick="cargarModulo('modulos/inicio.html')"><span class="icon">🏠</span> Inicio</a></li>
+        <li><a href="#" onclick="cargarModulo('modulos/mi_informacion_medica.html')"><span class="icon">🩺</span> Mi información médica</a></li>
+        <li><a href="#" onclick="cargarModulo('modulos/contactos.html')"><span class="icon">👥</span> Contactos de emergencia</a></li>
+        <li><a href="#" onclick="cargarModulo('modulos/dispositivo-qr.html')"><span class="icon">🔳</span> Mi dispositivo QR</a></li>
+        <li><a href="#" onclick="cargarModulo('modulos/ajustes.html')"><span class="icon">⚙️</span> Ajustes de cuenta</a></li>
       </ul>
     </aside>
 
-    <!-- Contenido principal -->
+    <!-- 🧩 Contenido principal -->
     <main class="main-content">
+
+      <!-- 🔝 Barra superior -->
       <header class="topbar">
         <button class="toggle-btn" id="toggle-btn">☰</button>
         <div class="user-panel">
@@ -43,48 +50,54 @@
         </div>
       </header>
 
+      <!-- 📦 Contenedor dinámico donde se cargarán los módulos -->
       <section class="content">
-        <div class="search-bar">
-          <input type="text" id="search-input" placeholder="Buscar en el panel...">
-          <button id="search-btn">🔍</button>
-        </div>
+        <div id="contenido-dinamico">
+          <!-- Aquí se insertarán los módulos dinámicamente -->
+        <form class="info-form grid">
+    <div class="form-group">
+      <label>Nombre completo</label>
+      <input type="text" value=" " disabled>
+    </div>
 
-        <div class="welcome-section">
-          <h2>Hola, <span id="nombreUsuario"></span></h2>
-          <p>Tu información está actualizada; última actualización hace 1 semana.</p>
-        </div>
+    <div class="form-group">
+      <label>Edad</label>
+      <input type="number" value=" " disabled>
+    </div>
 
-        <div class="cards-container" id="cards-container">
-          <div class="card" data-title="Historial médico" data-desc="Ver y editar enfermedades, alergias, tipo de sangre, etc.">
-            <div class="card-icon">🩺</div>
-            <h3>Historial médico</h3>
-            <p>Ver y editar enfermedades, alergias, tipo de sangre, etc.</p>
-            <button class="btn">Ver</button>
-          </div>
+    <div class="form-group">
+      <label>Grupo sanguíneo</label>
+      <input type="text" value=" " disabled>
+    </div>
 
-          <div class="card" data-title="QR Activo" data-desc="Tu QR está vinculado y funcionando correctamente.">
-            <div class="card-icon">🔳</div>
-            <h3>QR Activo</h3>
-            <p>Tu QR está vinculado y funcionando correctamente.</p>
-            <button class="btn">Ver</button>
-          </div>
+    <div class="form-group span-2">
+      <label>Enfermedades de base</label>
+      <textarea rows="2" disabled> </textarea>
+    </div>
 
-          <div class="card" data-title="Notificaciones recientes" data-desc="Última vez que tu código fue escaneado.">
-            <div class="card-icon">🔔</div>
-            <h3>Notificaciones recientes</h3>
-            <p>Última vez que tu código fue escaneado.</p>
-            <button class="btn">Ver</button>
-          </div>
-        </div>
+    <div class="form-group span-2">
+      <label>Alergias</label>
+      <textarea rows="2" disabled> </textarea>
+    </div>
 
-        <footer class="footer">
-          <p>Tus datos están encriptados y protegidos de acuerdo a la ley.</p>
-        </footer>
-      </section>
-    </main>
-  </div>
+    <div class="form-group span-2">
+      <label>Medicamentos</label>
+      <textarea rows="2" disabled> </textarea>
+    </div>
 
+    <div class="botonera">
+      <button type="button" class="btn" onclick="cargarModulo('modulos/editar_informacion.html')">
+        Editar la información
+      </button>
+    </div>
+  </form>
+
+  <p class="nota">
+    Esta información se mostrará al escanear tu código QR. Solo puede ser editada en la siguiente sección.
+  </p>
+</section>
+
+  <!-- ⚙️ Script principal -->
   <script src="dashboard.js"></script>
 </body>
 </html>
-

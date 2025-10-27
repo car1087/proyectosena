@@ -1,0 +1,24 @@
+<!-- ============================================
+     Módulo: Editar información médica
+     Descripción: sirve como punto de entrada a
+     las secciones detalladas del perfil médico.
+     Cada enlace podría abrir un submódulo o
+     formulario adicional (enfermedades, alergias, etc.)
+=============================================== -->
+<section class="modulo">
+  <!-- Título de la vista -->
+  <h2>Datos personales</h2>
+
+  <!-- Lista de enlaces a los submódulos -->
+  <ul class="lista">
+    <!-- Estos enlaces pueden cargarse dinámicamente más adelante -->
+    <li><a href="#">Enfermedades de base</a></li>
+    <li><a href="#">Medicamentos</a></li>
+    <li><a href="#">Alergias</a></li>
+  </ul>
+
+  <!-- Botón para regresar al módulo anterior -->
+  <button class="btn" onclick="cargarModulo('modulos/mi_informacion_medica.html')">
+    ← Volver
+  </button>
+</section>

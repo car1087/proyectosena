@@ -1,0 +1,44 @@
+<!-- ============================================
+     Módulo: Mi información médica
+     Descripción: muestra los datos médicos básicos
+     del usuario en formato de solo lectura.
+     El botón “Editar la información” lleva al módulo
+     de edición detallada.
+=============================================== -->
+<section class="modulo">
+  <!-- Título principal del módulo -->
+  <h2>Mi información médica</h2>
+
+  <!-- Contenedor del formulario de visualización -->
+  <div class="formulario">
+    <!-- Campos básicos del usuario (bloqueados) -->
+    <label>Nombre completo</label>
+    <input type="text" disabled value="">
+
+    <label>Edad</label>
+    <input type="number" disabled value="">
+
+    <label>Grupo sanguíneo</label>
+    <input type="text" disabled value="">
+
+    <label>Enfermedades de base</label>
+    <input type="text" disabled value="">
+
+    <label>Alergias</label>
+    <input type="text" disabled value="">
+
+    <label>Medicamentos</label>
+    <input type="text" disabled value="">
+
+    <!-- Botón que carga el siguiente módulo (edición detallada) -->
+    <button class="btn" onclick="cargarModulo('modulos/editar_informacion.html')">
+      Editar la información
+    </button>
+
+    <!-- Nota explicativa o mensaje informativo -->
+    <p class="nota">
+      Esta información se mostrará al escanear tu código QR.
+      Solo puede ser editada en la siguiente sección.
+    </p>
+  </div>
+</section>

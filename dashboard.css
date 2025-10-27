@@ -29,8 +29,10 @@ body {
   min-height: 100vh;
   display: block; /* ya no centramos el dashboard en el eje vertical */
 }
-
-
+/* ✅ Clase para ocultar elementos dinámicamente */
+.oculto {
+  display: none !important;
+}
 /* ==============================
    Dashboard general
 ============================== */
@@ -404,6 +406,129 @@ body {
   font-size: 0.9rem;
 }
 
+/* ...tus estilos anteriores... */
+
+/* ===========================
+   ESTILO UNIFICADO DE MÓDULOS MÉDICOS
+=========================== */
+
+.modulo {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  max-width: 750px;
+  margin: 2rem auto;
+  transition: all 0.2s ease-in-out;
+}
+
+.modulo h2 {
+  text-align: center;
+  color: var(--azul);
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* Estructura de formulario */
+.info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.6rem;
+  background-color: #fafafa;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--azul);
+  outline: none;
+  background-color: #fff;
+}
+
+/* Botonera */
+.botonera {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  background-color: var(--azul);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #004b8e;
+  transform: translateY(-2px);
+}
+
+/* Botones específicos */
+.btn-guardar {
+  background-color: #007a33;
+}
+
+.btn-guardar:hover {
+  background-color: #00642a;
+}
+
+/* Nota final */
+.nota {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 1.5rem;
+}
+
+/* ===========================
+   DISTRIBUCIÓN DE CAMPOS MÉDICOS CON GRID
+=========================== */
+
+.info-form.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem 2rem; /* espacio vertical y horizontal */
+  align-items: start;
+}
+
+/* Campos que deben ocupar toda la fila */
+.span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .span-2 {
+    grid-column: span 1;
+  }
+}
+
 /* ==============================
    Responsividad
 ============================== */
@@ -490,7 +615,7 @@ body {
   .logout {
     position: relative;
     left: 50%;
-    transform: translate(-170%,-40px);
+    transform: translate(-380%,-40px);
     margin-top: 0.5rem;
     background-color: rgba(255,255,255,0.2);
     padding: 0.4rem 1rem;
