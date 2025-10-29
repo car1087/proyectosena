@@ -1,69 +1,67 @@
 // ==============================
-// Mostrar nombre del usuario
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
-  const nombreUsuario = localStorage.getItem("nombreUsuario");
-  const spanUsuario = document.getElementById("nombreUsuario");
-
-  if (nombreUsuario) {
-    spanUsuario.textContent = nombreUsuario;
-  } else {
-    spanUsuario.textContent = "Invitado";
-  }
-});
-
-// ==============================
 // Menú lateral (modo responsive)
 // ==============================
-const toggleBtn = document.getElementById("toggle-btn");
-const sidebar = document.getElementById("sidebar");
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById("toggle-btn");
+  const sidebar = document.getElementById("sidebar");
 
-toggleBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("active");
+  if (toggleBtn && sidebar) {
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  } else {
+    console.warn("⚠️ No se encontró el botón o sidebar en el DOM.");
+  }
 });
 
 // ==============================
 // Funcionalidad del buscador
 // ==============================
-const searchInput = document.getElementById("search-input");
-const searchBtn = document.getElementById("search-btn");
-const cards = document.querySelectorAll(".card");
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-input");
+  const searchBtn = document.getElementById("search-btn");
+  const cards = document.querySelectorAll(".card");
 
-function filtrarTarjetas() {
-  const query = searchInput.value.toLowerCase().trim();
+  if (!searchInput || !searchBtn) return; // seguridad
 
-  cards.forEach(card => {
-    const title = card.dataset.title.toLowerCase();
-    const desc = card.dataset.desc.toLowerCase();
+  function filtrarTarjetas() {
+    const query = searchInput.value.toLowerCase().trim();
 
-    if (title.includes(query) || desc.includes(query)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
+    cards.forEach(card => {
+      const title = card.dataset.title.toLowerCase();
+      const desc = card.dataset.desc.toLowerCase();
 
-searchBtn.addEventListener("click", filtrarTarjetas);
-searchInput.addEventListener("keyup", event => {
-  if (event.key === "Enter") {
-    filtrarTarjetas();
+      if (title.includes(query) || desc.includes(query)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
   }
+
+  searchBtn.addEventListener("click", filtrarTarjetas);
+  searchInput.addEventListener("keyup", event => {
+    if (event.key === "Enter") filtrarTarjetas();
+  });
 });
 
 // ==============================
 // Simulación de cierre de sesión
 // ==============================
-const logoutLink = document.querySelector(".logout");
-logoutLink.addEventListener("click", (e) => {
-  e.preventDefault();
-  localStorage.removeItem("nombreUsuario");
-  alert("Sesión cerrada correctamente");
-  location.reload();
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutLink = document.querySelector(".logout");
+  if (!logoutLink) return;
+
+  logoutLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    localStorage.removeItem("nombreUsuario");
+    alert("Sesión cerrada correctamente");
+    location.reload();
+  });
 });
 
 // ==============================
-// Cargar módulos dinámicamente
+// Cargar módulos dinámicamente (versión final)
 // ==============================
 function cargarModulo(ruta) {
   const contenedor = document.getElementById("contenido-dinamico");
@@ -81,23 +79,40 @@ function cargarModulo(ruta) {
       return res.text();
     })
     .then(html => {
-      // Animación suave
       contenedor.style.opacity = 0;
+
       setTimeout(() => {
+        console.log("📄 Módulo cargado:", ruta);
         contenedor.innerHTML = html;
         contenedor.style.opacity = 1;
-      }, 150);
+        window.scrollTo(0, 0);
 
-      window.scrollTo(0, 0);
+        // Control de visibilidad general
+        const esInicio = ruta.includes("inicio");
+        const esInfoMedica = ruta.includes("mi_informacion_medica");
 
-      // Mostrar/Ocultar barra y avatar
-      if (ruta.includes("inicio")) {
-        searchBar?.classList.remove("oculto");
-        userAvatar?.classList.remove("oculto");
-      } else {
-        searchBar?.classList.add("oculto");
-        userAvatar?.classList.add("oculto");
-      }
+        if (esInicio) {
+          searchBar?.classList.remove("oculto");
+          userAvatar?.classList.remove("oculto");
+        } else {
+          searchBar?.classList.add("oculto");
+          userAvatar?.classList.add("oculto");
+        }
+
+        // Ajuste visual del módulo de información médica
+        if (esInfoMedica) {
+          const modulo = contenedor.querySelector(".modulo");
+          if (modulo) {
+            modulo.classList.add("layout-ancho");
+            modulo.style.display = "block";
+            modulo.style.margin = "2rem auto";
+            modulo.style.maxWidth = "1200px";
+            modulo.style.width = "90%";
+          } else {
+            console.warn("⚠️ No se encontró la clase .modulo dentro de mi_informacion_medica.html");
+          }
+        }
+      }, 200);
     })
     .catch(err => {
       contenedor.innerHTML = `<p style="color:red; padding:1rem;">❌ No se pudo cargar el módulo.<br>${err.message}</p>`;
@@ -111,3 +126,4 @@ function cargarModulo(ruta) {
 document.addEventListener("DOMContentLoaded", () => {
   cargarModulo('modulos/inicio.html');
 });
+

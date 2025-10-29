@@ -711,3 +711,173 @@ body {
     text-align: center;
   }
 }
+
+/* ===========================
+   Ajuste visual para Mi Información Médica
+=========================== */
+.layout-ancho {
+  max-width: 1200px !important;
+  width: 90%;
+  margin: 2rem auto !important;
+  display: block;
+}
+
+/* ===========================
+   Estilo tipo tarjeta para "Mi información médica"
+=========================== */
+.modulo.layout-ancho {
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+  min-height: calc(100vh - 120px);
+}
+
+/* Tarjeta blanca centrada */
+.modulo .formulario {
+  background-color: #ffffff;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem 1.5rem;
+}
+
+/* Título principal */
+.modulo h2 {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  grid-column: 1 / -1;
+}
+
+/* Etiquetas */
+.modulo label {
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* Campos */
+.modulo input[type="text"],
+.modulo input[type="number"],
+.modulo textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 1.2rem;
+  background-color: #fff;
+  font-size: 0.95rem;
+}
+
+.modulo input:disabled,
+.modulo textarea:disabled {
+  background-color: #fff;
+  color: #555;
+  cursor: not-allowed;
+}
+
+/* Botón */
+.modulo .btn {
+  grid-column: 1 / -1;
+  justify-self: center;
+  background-color: #49a8e5;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.modulo .btn:hover {
+  background-color: #3a92bf;
+}
+
+/* Nota inferior */
+.modulo .nota {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 1rem;
+  line-height: 1.4;
+}
+
+/* ===========================
+   Estilo mejorado para "Editar información"
+=========================== */
+.modulo.editar-info {
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+  min-height: calc(100vh - 120px);
+}
+
+/* Tarjeta blanca centrada */
+.modulo.editar-info .contenedor {
+  background-color: #ffffff;
+  padding: 2.5rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 100%;
+  text-align: left;
+}
+
+/* Lista de enlaces */
+.modulo.editar-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.modulo.editar-info li {
+  margin: 1rem 0;
+}
+
+/* Enlaces grandes y con interlineado */
+.modulo.editar-info a {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #333333;
+  text-decoration: none;
+  line-height: 1.8;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.modulo.editar-info a:hover {
+  color: #49a8e5;
+  text-decoration: underline;
+}
+
+/* Botón de volver */
+.modulo.editar-info .btn-volver {
+  display: inline-block;
+  background-color: #49a8e5;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.8rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.modulo.editar-info .btn-volver:hover {
+  background-color: #49a8e5;
+}
+
