@@ -1,0 +1,319 @@
+/* =====================================================
+   CSS Unificado para todos los submódulos
+   Paleta de colores y tipografía coherente con Dashboard
+===================================================== */
+
+/* Variables de color y tipografía */
+:root {
+  --color-principal: #4DA8DA;      /* Azul celeste */
+  --color-exito: #6BCB77;          /* Verde menta */
+  --color-alerta: #FF6B6B;         /* Rojo suave */
+  --gris-claro: #F7F7F7;           
+  --gris-oscuro: #333333;
+  --blanco: #FFFFFF;
+  --fuente-principal: 'Roboto', sans-serif;
+
+  --tam-titulo: 32px;
+  --tam-subtitulo: 20px;
+  --tam-texto: 16px;
+  --tam-boton: 24px;
+}
+
+/* Contenedor principal del submódulo */
+.modulo, .card {
+  max-width: 1000px;
+  margin: 1rem auto; /* disminuye el margen superior de 2rem a 1rem */
+  background-color: var(--blanco);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  font-family: var(--fuente-principal);
+  color: var(--gris-oscuro);
+}
+
+/* Títulos principales */
+.modulo h2, .card h2 {
+  font-size: var(--tam-titulo);
+  font-weight: 600;
+  color: var(--color-principal);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Formularios */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Etiquetas */
+form label {
+  font-weight: 500;
+  color: var(--gris-oscuro);
+  margin-bottom: 0.3rem;
+  font-size: var(--tam-texto);
+}
+
+/* Campos de entrada */
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: var(--tam-texto);
+  transition: all 0.3s ease;
+  background-color: var(--gris-claro);
+}
+
+/* Hover y enfoque */
+form input:focus,
+form select:focus,
+form textarea:focus {
+  outline: none;
+  border-color: var(--color-principal);
+  box-shadow: 0 0 6px rgba(77, 168, 218, 0.2);
+  background-color: var(--blanco);
+}
+
+/* Campos de solo lectura */
+form input[readonly],
+form input:disabled,
+form textarea:disabled {
+  background-color: #f1f1f1;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Botones principales */
+button,
+.btn {
+  background-color: var(--color-principal);
+  color: var(--blanco);
+  font-size: var(--tam-boton);
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: center;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #3a92bf;
+}
+
+/* Botón de volver */
+.modulo.editar-info .btn-volver {
+  display: inline-block;
+  background-color: #49a8e5;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.8rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+/* Contenedor de botones con espacio entre ellos */
+.botonera {
+  display: flex;
+  justify-content: space-between; /* Volver a la izquierda, Guardar a la derecha */
+  margin-top: 1.5rem;
+  gap: 1rem; /* espacio opcional entre botones */
+}
+
+/* Ajuste de botones individuales */
+.btn-guardar {
+  background-color: var(--color-principal);
+  color: var(--blanco);
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-guardar:hover {
+  background-color: #3a92bf;
+}
+
+.btn-volver {
+  background-color: #49a8e5;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.8rem;
+  border-radius: 2rem;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #3a92bf;
+}
+
+/* Mensajes de éxito o alerta */
+.mensaje-exito {
+  color: var(--color-exito);
+  font-weight: 500;
+  font-size: var(--tam-texto);
+}
+
+.mensaje-alerta {
+  color: var(--color-alerta);
+  font-weight: 500;
+  font-size: var(--tam-texto);
+}
+
+/* Layout grid para formularios amplios */
+form.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem 2rem;
+}
+
+form .span-2 {
+  grid-column: span 2;
+}
+
+/* Adaptación móvil */
+@media (max-width: 600px) {
+  .modulo, .card {
+    padding: 1.2rem;
+  }
+
+  .modulo h2, .card h2 {
+    font-size: 24px;
+  }
+
+  form input,
+  form select,
+  form textarea {
+    font-size: 14px;
+  }
+
+  button,
+  .btn {
+    font-size: 18px;
+    padding: 0.6rem 1.2rem;
+  }
+
+  form .span-2 {
+    grid-column: span 1;
+  }
+}
+/* Campos de formulario uniformes */
+#formDatosPersonales input,
+#formDatosPersonales select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 10px solid #ccc;
+  border-radius: 1rem;  /* <-- redondeado uniforme */
+  font-size: 16px;
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#formDatosPersonales input:focus,
+#formDatosPersonales select:focus {
+  border-color: #4DA8DA;
+  outline: none;
+  box-shadow: 0 0 6px rgba(77,168,218,0.3);
+}
+
+.botonera .btn-guardar {
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #4DA8DA;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.botonera .btn-guardar:hover {
+  background-color: #4DA8DA;
+}
+
+/* =====================================================
+   Submódulo: Enfermedades de Base
+===================================================== */
+
+/* Contenedor de cada enfermedad */
+.enfermedad {
+  background-color: var(--blanco);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.enfermedad:hover {
+  transform: translateY(-2px);
+}
+
+/* Inputs dentro de cada bloque */
+.enfermedad input {
+  border-radius: 12px;
+  background-color: var(--gris-claro);
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+}
+
+/* Botones dentro de cada enfermedad */
+.boton-acciones {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: flex-end;
+}
+
+.boton-acciones button {
+  background-color: var(--color-principal);
+  color: var(--blanco);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.boton-acciones button:hover {
+  background-color: #3a92bf;
+}
+
+/* Botonera principal */
+.botonera {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.botonera .btn {
+  background-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 2rem;
+  padding: 0.8rem 2rem;
+  border: none;
+  font-size: var(--tam-boton);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonera .btn:hover {
+  background-color: #3a92bf;
+}

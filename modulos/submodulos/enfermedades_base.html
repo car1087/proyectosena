@@ -1,17 +1,26 @@
-<section class="modulo editar-info">
-  <div class="contenedor">
-    <h2>Enfermedades de base</h2>
+<div class="card">
+  <h2>Enfermedades de Base</h2>
 
-    <form class="formulario">
-      <label>Enfermedades diagnosticadas</label>
-      <textarea rows="5" placeholder="Ej. Hipertensión, diabetes tipo 2, asma..."></textarea>
+  <form id="formEnfermedades" class="form-enfermedades">
+    <div id="listaEnfermedades">
+      <!-- Las enfermedades se agregarán dinámicamente aquí -->
+      <div class="enfermedad-item">
+        <textarea disabled> </textarea>
+        <div class="acciones">
+          <button type="button" class="btn-editar">✏️</button>
+          <button type="button" class="btn-eliminar">🗑️</button>
+        </div>
+      </div>
+    </div>
 
-      <label>Tratamientos actuales</label>
-      <textarea rows="4" placeholder="Ej. Enalapril diario, insulina cada mañana..."></textarea>
+    <div class="botonera">
+     <button type="button" id="btnAgregar" class="btn">➕ Agregar enfermedad</button>
+     <button type="button" class="btn btn-volver" onclick="cargarModulo('modulos/editar_informacion.html')">← Volver</button>
+     <button type="submit" class="btn btn-guardar">💾 Guardar cambios</button>
+      
+    </div>
+  </form>
+</div>
 
-      <button class="btn-volver" type="button" onclick="cargarModulo('modulos/editar_informacion.html')">
-        ← Volver
-      </button>
-    </form>
-  </div>
-</section>
+<!-- Script del submódulo -->
+<script src="enfermedades_base.js"></script>
