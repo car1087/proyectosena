@@ -718,7 +718,7 @@ body {
 .layout-ancho {
   max-width: 1200px !important;
   width: 90%;
-  margin: 2rem auto !important;
+  margin: 0rem auto !important;
   display: block;
 }
 
@@ -730,28 +730,36 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 3rem 1rem;
+  padding: 1rem 1rem;
   min-height: calc(100vh - 120px);
 }
 
 /* Tarjeta blanca centrada */
 .modulo .formulario {
   background-color: #ffffff;
-  padding: 2rem 3rem;
+  padding: 3rem 3rem;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
-  width: 100%;
+  max-width: 900px;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.2rem 1.5rem;
+}
+.modulo.layout-ancho h2 {
+  color: #333333;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  grid-column: 1 / -1;
 }
 
 /* Título principal */
 .modulo h2 {
   text-align: center;
   font-size: 1.4rem;
-  color: #333;
+  color: #333333;
   margin-bottom: 1.5rem;
   grid-column: 1 / -1;
 }
@@ -759,7 +767,7 @@ body {
 /* Etiquetas */
 .modulo label {
   font-weight: 600;
-  color: #333;
+  color: #333333;
   display: block;
   margin-bottom: 0.3rem;
 }
@@ -769,7 +777,7 @@ body {
 .modulo input[type="number"],
 .modulo textarea {
   width: 100%;
-  padding: 0.6rem 1rem;
+  padding: 0.2rem 1rem;
   border: 1px solid #ddd;
   border-radius: 1.2rem;
   background-color: #fff;

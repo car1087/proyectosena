@@ -5,40 +5,47 @@
      El botón “Editar la información” lleva al módulo
      de edición detallada.
 =============================================== -->
-<section class="modulo">
-  <!-- Título principal del módulo -->
+<section class="modulo layout-ancho">
   <h2>Mi información médica</h2>
 
-  <!-- Contenedor del formulario de visualización -->
   <div class="formulario">
-    <!-- Campos básicos del usuario (bloqueados) -->
-    <label>Nombre completo</label>
-    <input type="text" disabled value="">
+    <div class="campo">
+      <label>Nombre completo</label>
+      <input type="text" disabled value="">
+    </div>
 
-    <label>Edad</label>
-    <input type="number" disabled ="">
+    <div class="campo">
+      <label>Edad</label>
+      <input type="number" disabled>
+    </div>
 
-    <label>Grupo sanguíneo</label>
-    <input type="text" disabled value="">
+    <div class="campo">
+      <label>Grupo sanguíneo</label>
+      <input type="text" disabled value="">
+    </div>
 
-    <label>Enfermedades de base</label>
-    <input type="text" disabled value="">
+    <div class="campo">
+      <label>Enfermedades de base</label>
+      <input type="text" disabled value="">
+    </div>
 
-    <label>Alergias</label>
-    <input type="text" disabled value="">
+    <div class="campo">
+      <label>Alergias</label>
+      <input type="text" disabled value="">
+    </div>
 
-    <label>Medicamentos</label>
-    <input type="text" disabled value="">
+    <div class="campo">
+      <label>Medicamentos</label>
+      <input type="text" disabled value="">
+    </div>
 
-    <!-- Botón que carga el siguiente módulo (edición detallada) -->
     <button class="btn" onclick="cargarModulo('modulos/editar_informacion.html')">
       Editar la información
     </button>
-
-    <!-- Nota explicativa o mensaje informativo -->
-    <p class="nota">
-      Esta información se mostrará al escanear tu código QR.
-      Solo puede ser editada en la siguiente sección.
-    </p>
   </div>
+
+  <p class="nota">
+    Esta información se mostrará al escanear tu código QR.
+    Solo puede ser editada en la siguiente sección.
+  </p>
 </section>

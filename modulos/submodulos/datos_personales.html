@@ -1,112 +1,77 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Datos Personales</title>
+<section class="modulo">
+  <h2>Datos Personales</h2>
 
-  <!-- CSS general del dashboard -->
-  <link rel="stylesheet" href="../../dashboard.css">
+  <form id="formDatosPersonales" class="info-form grid-dos-columnas">
 
-  <!-- CSS específico del submódulo -->
-  <link rel="stylesheet" href="editar_informacion.css">
+    <div class="form-group">
+      <label for="nombreCompleto">Nombre completo</label>
+      <input type="text" id="nombreCompleto" required>
+    </div>
 
-  <!-- Tipografía -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <div class="form-group">
+      <label for="tipoDocumento">Tipo de documento</label>
+      <select id="tipoDocumento" required>
+        <option value="">Seleccione...</option>
+        <option value="CC">Cédula de ciudadanía</option>
+        <option value="TI">Tarjeta de identidad</option>
+        <option value="CE">Cédula de extranjería</option>
+        <option value="PA">Pasaporte</option>
+        <option value="OT">Otro</option>
+      </select>
+    </div>
 
-  <section class="modulo">
-    <h2>Datos Personales</h2>
+    <div class="form-group">
+      <label for="numeroDocumento">Número de documento</label>
+      <input type="text" id="numeroDocumento" required>
+    </div>
 
-    <form id="formDatosPersonales" class="info-form grid">
+    <div class="form-group">
+      <label for="fechaNacimiento">Fecha de nacimiento</label>
+      <input type="date" id="fechaNacimiento" required>
+    </div>
 
-      <!-- Nombre completo -->
-      <div class="form-group">
-        <label for="nombreCompleto">Nombre completo</label>
-        <input type="text" id="nombreCompleto" required>
-      </div>
+    <div class="form-group">
+      <label for="edad">Edad</label>
+      <input type="text" id="edad" readonly>
+    </div>
 
-      <!-- Tipo de documento -->
-      <div class="form-group">
-        <label for="tipoDocumento">Tipo de documento</label>
-        <select id="tipoDocumento" required>
-          <option value="">Seleccione...</option>
-          <option value="CC">Cédula de ciudadanía</option>
-          <option value="TI">Tarjeta de identidad</option>
-          <option value="CE">Cédula de extranjería</option>
-          <option value="PA">Pasaporte</option>
-          <option value="OT">Otro</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="grupoSanguineo">Grupo sanguíneo</label>
+      <select id="grupoSanguineo" required>
+        <option value="">Seleccione...</option>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+      </select>
+    </div>
 
-      <!-- Número de documento -->
-      <div class="form-group">
-        <label for="numeroDocumento">Número de documento</label>
-        <input type="text" id="numeroDocumento" required>
-      </div>
+    <div class="form-group">
+      <label for="telefono">Número de teléfono</label>
+      <input type="text" id="telefono" maxlength="25" required
+             pattern="^[0-9+\-() ]{7,25}$"
+             title="Ingrese un número válido, puede incluir +, -, () y espacios.">
+    </div>
 
-      <!-- Fecha de nacimiento -->
-      <div class="form-group">
-        <label for="fechaNacimiento">Fecha de nacimiento</label>
-        <input type="date" id="fechaNacimiento" required>
-      </div>
+    <div class="form-group">
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" required>
+    </div>
 
-      <!-- Edad (automática) -->
-      <div class="form-group">
-        <label for="edad">Edad</label>
-        <input type="text" id="edad" readonly>
-      </div>
+    <div class="botonera">
+      <button type="button" class="btn btn-volver" onclick="cargarModulo('modulos/editar_informacion.html')">
+        ← Volver
+      </button>
+      <button type="submit" class="btn btn-guardar">
+        Guardar cambios
+      </button>
+    </div>
 
-      <!-- Grupo sanguíneo -->
-      <div class="form-group">
-        <label for="grupoSanguineo">Grupo sanguíneo</label>
-        <select id="grupoSanguineo" required>
-          <option value="">Seleccione...</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-        </select>
-      </div>
+  </form>
+</section>
 
-      <!-- Número de teléfono -->
-      <div class="form-group">
-        <label for="telefono">Número de teléfono</label>
-        <input type="text" id="telefono" maxlength="25" required
-               pattern="^[0-9+\-() ]{7,25}$"
-               title="Ingrese un número válido, puede incluir +, -, () y espacios.">
-      </div>
 
-      <!-- Correo electrónico -->
-      <div class="form-group">
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" required>
-      </div>
-
-      <!-- Botón Volver al menú anterior -->
-<div class="botonera">
-  <button type="button" class="btn btn-volver" onclick="cargarModulo('modulos/editar_informacion.html')">
-    ← Volver
-  </button>
-</div>
-
-      <!-- Botón de guardar -->
-      <div class="botonera">
-        <button type="submit" class="btn btn-guardar">
-          Guardar cambios
-        </button>
-      </div>
-
-    </form>
-  </section>
-
-  <!-- JS específico del submódulo -->
-  <script src="datos_personales.js"></script>
-
-</body>
-</html>

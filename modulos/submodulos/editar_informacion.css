@@ -1,370 +1,250 @@
 /* =====================================================
    CSS Unificado para todos los submódulos
-   Paleta de colores y tipografía coherente con Dashboard
 ===================================================== */
 
-/* Variables de color y tipografía */
-:root {
-  --color-principal: #4DA8DA;      /* Azul celeste */
-  --color-exito: #6BCB77;          /* Verde menta */
-  --color-alerta: #FF6B6B;         /* Rojo suave */
-  --gris-claro: #F7F7F7;           
-  --gris-oscuro: #333333;
-  --blanco: #FFFFFF;
-  --fuente-principal: 'Roboto', sans-serif;
-
-  --tam-titulo: 32px;
-  --tam-subtitulo: 20px;
-  --tam-texto: 16px;
-  --tam-boton: 24px;
-}
-
-/* Contenedor principal del submódulo */
-.modulo, .card {
-  max-width: 1000px;
-  margin: 1rem auto; /* disminuye el margen superior de 2rem a 1rem */
-  background-color: var(--blanco);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+/* ==============================
+   Estilo general de módulos
+============================== */
+.modulo {
+  background: #ffffff;
+  border-radius: 1rem;
   padding: 2rem;
-  font-family: var(--fuente-principal);
-  color: var(--gris-oscuro);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  margin: 2rem auto;
+  transition: all 0.2s ease-in-out;
 }
 
-/* Títulos principales */
-.modulo h2, .card h2 {
-  font-size: var(--tam-titulo);
-  font-weight: 600;
-  color: var(--color-principal);
+.modulo h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  color: var(--gris oscuro);
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  grid-column: 1 / -1;
 }
 
-/* Formularios */
-form {
+/* ==============================
+   FORMULARIOS SUBMÓDULOS - DOS COLUMNAS
+============================== */
+.modulo .formulario,
+.info-form.grid-dos-columnas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 2rem;
+  align-items: start;
+}
+
+.modulo .formulario .form-group,
+.info-form.grid-dos-columnas .form-group {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
 }
 
-/* Etiquetas */
-form label {
-  font-weight: 500;
-  color: var(--gris-oscuro);
-  margin-bottom: 0.3rem;
-  font-size: var(--tam-texto);
+.modulo .formulario label,
+.info-form.grid-dos-columnas label {
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 0.4rem;
 }
 
-/* Campos de entrada */
-form input,
-form select,
-form textarea {
+.modulo .formulario input,
+.modulo .formulario select,
+.modulo .formulario textarea,
+.info-form.grid-dos-columnas input,
+.info-form.grid-dos-columnas select,
+.info-form.grid-dos-columnas textarea {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
   border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: var(--tam-texto);
-  transition: all 0.3s ease;
-  background-color: var(--gris-claro);
+  border-radius: 1.2rem;
+  background-color: #fafafa;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
 }
 
-/* Hover y enfoque */
-form input:focus,
-form select:focus,
-form textarea:focus {
+.modulo .formulario input:focus,
+.modulo .formulario select:focus,
+.modulo .formulario textarea:focus,
+.info-form.grid-dos-columnas input:focus,
+.info-form.grid-dos-columnas select:focus,
+.info-form.grid-dos-columnas textarea:focus {
+  border-color: var(--azul);
   outline: none;
-  border-color: var(--color-principal);
-  box-shadow: 0 0 6px rgba(77, 168, 218, 0.2);
-  background-color: var(--blanco);
+  background-color: #ffffff;
 }
 
-/* Campos de solo lectura */
-form input[readonly],
-form input:disabled,
-form textarea:disabled {
-  background-color: #f1f1f1;
-  color: #666;
-  cursor: not-allowed;
-}
-
-/* Botones principales */
-button,
-.btn {
-  background-color: var(--color-principal);
-  color: var(--blanco);
-  font-size: var(--tam-boton);
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  align-self: center;
-}
-
-button:hover,
-.btn:hover {
-  background-color: #3a92bf;
-}
-
-/* Botón de volver */
-.modulo.editar-info .btn-volver {
-  display: inline-block;
-  background-color: #49a8e5;
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.8rem;
-  border-radius: 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-/* Contenedor de botones con espacio entre ellos */
-.botonera {
+/* ==============================
+   Botonera y botones uniformes
+============================== */
+.modulo .formulario .botonera,
+.info-form.grid-dos-columnas .botonera {
+  grid-column: 1 / -1;
   display: flex;
-  justify-content: space-between; /* Volver a la izquierda, Guardar a la derecha */
-  margin-top: 1.5rem;
-  gap: 1rem; /* espacio opcional entre botones */
+  justify-content: center;
+  gap: 1rem;
 }
 
-/* Ajuste de botones individuales */
-.btn-guardar {
-  background-color: var(--color-principal);
-  color: var(--blanco);
-  padding: 0.8rem 2rem;
-  border-radius: 2rem;
-  font-size: 16px;
+.modulo .formulario .btn-guardar,
+.modulo .formulario .btn-volver,
+.info-form.grid-dos-columnas .btn-guardar,
+.info-form.grid-dos-columnas .btn-volver {
+  background-color: var(--azul);
+  color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 0.8rem 1.8rem;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.btn-guardar:hover {
-  background-color: #3a92bf;
+.modulo .formulario .btn-guardar:hover,
+.modulo .formulario .btn-volver:hover,
+.info-form.grid-dos-columnas .btn-guardar:hover,
+.info-form.grid-dos-columnas .btn-volver:hover {
+  background-color: #4DA8DA;
+  transform: translateY(-2px);
 }
 
-.btn-volver {
-  background-color: #49a8e5;
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.8rem;
-  border-radius: 2rem;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* Nota inferior de los formularios */
+.modulo .formulario .nota,
+.info-form.grid-dos-columnas .nota {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 1rem;
+  line-height: 1.4;
 }
 
-.btn-volver:hover {
-  background-color: #3a92bf;
-}
-
-/* Mensajes de éxito o alerta */
-.mensaje-exito {
-  color: var(--color-exito);
-  font-weight: 500;
-  font-size: var(--tam-texto);
-}
-
-.mensaje-alerta {
-  color: var(--color-alerta);
-  font-weight: 500;
-  font-size: var(--tam-texto);
-}
-
-/* Layout grid para formularios amplios */
-form.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem 2rem;
-}
-
-form .span-2 {
+/* ==============================
+   Campos que ocupan toda la fila
+============================== */
+.span-2 {
   grid-column: span 2;
 }
 
-/* Adaptación móvil */
 @media (max-width: 600px) {
-  .modulo, .card {
-    padding: 1.2rem;
+  .modulo .formulario,
+  .info-form.grid-dos-columnas {
+    grid-template-columns: 1fr;
   }
-
-  .modulo h2, .card h2 {
-    font-size: 24px;
-  }
-
-  form input,
-  form select,
-  form textarea {
-    font-size: 14px;
-  }
-
-  button,
-  .btn {
-    font-size: 18px;
-    padding: 0.6rem 1.2rem;
-  }
-
-  form .span-2 {
+  .span-2 {
     grid-column: span 1;
   }
-}
-/* Campos de formulario uniformes */
-#formDatosPersonales input,
-#formDatosPersonales select {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 10px solid #ccc;
-  border-radius: 1rem;  /* <-- redondeado uniforme */
-  font-size: 16px;
-  background-color: #fff;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-#formDatosPersonales input:focus,
-#formDatosPersonales select:focus {
-  border-color: #4DA8DA;
-  outline: none;
-  box-shadow: 0 0 6px rgba(77,168,218,0.3);
-}
-
-.botonera .btn-guardar {
-  padding: 0.8rem 2rem;
-  border-radius: 2rem;
-  font-size: 16px;
-  font-weight: 600;
-  background-color: #4DA8DA;
-  color: #fff;
-  transition: background 0.3s ease;
-}
-
-.botonera .btn-guardar:hover {
-  background-color: #4DA8DA;
 }
 
 /* =====================================================
    Submódulo: Enfermedades de Base
 ===================================================== */
 
-/* Contenedor de cada enfermedad */
-.enfermedad {
-  background-color: var(--blanco);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.2rem;
+/* Contenedor principal */
+.form-enfermedades {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Cada bloque de enfermedad */
+.enfermedad {
+  display: flex;
+  align-items: center;
   gap: 0.8rem;
-  transition: transform 0.2s ease;
-}
-
-.enfermedad:hover {
-  transform: translateY(-2px);
-}
-
-/* Inputs dentro de cada bloque */
-.enfermedad input {
-  border-radius: 12px;
-  background-color: var(--gris-claro);
+  background-color: #f9f9f9;
   padding: 0.8rem;
-  border: 1px solid #ccc;
+  border-radius: 1rem;
+  border: 1px solid #ddd;
 }
 
-/* Botones dentro de cada enfermedad */
+/* ==============================
+   Textarea estilo uniforme
+============================== */
+.form-enfermedades textarea {
+  width: 100%;
+  min-height: 45px;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 1.2rem; /* mismas esquinas redondeadas */
+  background-color: #fafafa;
+  font-size: 0.95rem;
+  resize: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-enfermedades textarea:focus {
+  border-color: var(--azul);
+  background-color: #fff;
+  outline: none;
+}
+
+
+/* Botones de acción (Editar y Eliminar) */
 .boton-acciones {
   display: flex;
-  gap: 0.8rem;
-  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.boton-acciones button {
-  background-color: var(--color-principal);
-  color: var(--blanco);
+
+/* Estilo base de botones */
+.btn {
   border: none;
-  border-radius: 2.5rem;
+  border-radius: 1rem;
   padding: 0.6rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.2s ease;
+  color: #fff;
+  background-color: var(--azul);
 }
 
-.boton-acciones button:hover {
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Botón eliminar mantiene rojo */
+.btn-eliminar {
+  background-color: #FF6B6B;
+}
+
+
+/* Botón “Agregar enfermedad” */
+#btnAgregar {
   background-color: #4DA8DA;
 }
 
-/* Botonera principal */
+/* Botón “Volver” */
+.btn-volver {
+  background-color: #4DA8DA;
+}
+
+/* Botón “Guardar cambios” */
+.btn-guardar {
+  background-color: #4DA8DA;
+}
+
+/* Botonera inferior */
 .botonera {
   display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.botonera .btn {
-  background-color: var(--color-principal);
-  color: var(--blanco);
-  border-radius: 2rem;
-  padding: 0.8rem 2rem;
-  border: none;
-  font-size: var(--tam-boton);
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+/* Responsive: apilar elementos en pantallas pequeñas */
+@media (max-width: 700px) {
+  .enfermedad {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.botonera .btn:hover {
-  background-color: #4DA8DA;
-}
-/* =====================================================
-   AJUSTES VISUALES - Submódulo: Enfermedades de Base
-   (Uniformidad de estilo y espaciado)
-===================================================== */
+  .boton-acciones {
+    justify-content: space-between;
+  }
 
-/* 1️⃣ Botón Guardar cambios en azul coherente */
-.btn-guardar {
-  background-color: #4DA8DA !important;
-  color: #FFFFFF;
-  border-radius: 2.5rem;
-  padding: 0.8rem 2rem;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  border: none;
-}
-
-.btn-guardar:hover {
-  background-color: #3a92bf !important;
-}
-
-/* 2️⃣ Más espacio entre el título y el contenido */
-.form-enfermedades {
-  margin-top: 3.8rem;
-}
-
-/* 3️⃣ Textarea más grande y redondeado */
-.enfermedad textarea {
-  width: 100%;
-  min-height: 100px;
-  padding: 1rem;
-  border-radius: 2.5rem;
-  border: 1px solid #ccc;
-  background-color: var(--gris-claro);
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.enfermedad textarea:focus {
-  border-color: #4DA8DA;
-  box-shadow: 0 0 8px rgba(77, 168, 218, 0.3);
-  background-color: #FFFFFF;
-}
-
-/* 4️⃣ Botones Editar/Eliminar más redondeados */
-.boton-acciones .btn {
-  border-radius: 2.5rem;
-  padding: 0.6rem 1.4rem;
-  font-size: 0.95rem;
+  .botonera {
+    flex-direction: column;
+  }
 }
