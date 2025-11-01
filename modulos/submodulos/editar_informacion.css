@@ -165,7 +165,7 @@
   min-height: 45px;
   padding: 0.8rem 1rem;
   border: 1px solid #ccc;
-  border-radius: 1.2rem; /* mismas esquinas redondeadas */
+  border-radius: 1.2rem;
   background-color: #fafafa;
   font-size: 0.95rem;
   resize: none;
