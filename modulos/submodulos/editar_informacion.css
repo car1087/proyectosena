@@ -283,7 +283,7 @@ form .span-2 {
   background-color: var(--color-principal);
   color: var(--blanco);
   border: none;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
   padding: 0.6rem 1.2rem;
   font-size: 0.9rem;
   font-weight: 500;
@@ -292,7 +292,7 @@ form .span-2 {
 }
 
 .boton-acciones button:hover {
-  background-color: #3a92bf;
+  background-color: #4DA8DA;
 }
 
 /* Botonera principal */
@@ -315,5 +315,56 @@ form .span-2 {
 }
 
 .botonera .btn:hover {
-  background-color: #3a92bf;
+  background-color: #4DA8DA;
+}
+/* =====================================================
+   AJUSTES VISUALES - Submódulo: Enfermedades de Base
+   (Uniformidad de estilo y espaciado)
+===================================================== */
+
+/* 1️⃣ Botón Guardar cambios en azul coherente */
+.btn-guardar {
+  background-color: #4DA8DA !important;
+  color: #FFFFFF;
+  border-radius: 2.5rem;
+  padding: 0.8rem 2rem;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: none;
+}
+
+.btn-guardar:hover {
+  background-color: #3a92bf !important;
+}
+
+/* 2️⃣ Más espacio entre el título y el contenido */
+.form-enfermedades {
+  margin-top: 3.8rem;
+}
+
+/* 3️⃣ Textarea más grande y redondeado */
+.enfermedad textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 1rem;
+  border-radius: 2.5rem;
+  border: 1px solid #ccc;
+  background-color: var(--gris-claro);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.enfermedad textarea:focus {
+  border-color: #4DA8DA;
+  box-shadow: 0 0 8px rgba(77, 168, 218, 0.3);
+  background-color: #FFFFFF;
+}
+
+/* 4️⃣ Botones Editar/Eliminar más redondeados */
+.boton-acciones .btn {
+  border-radius: 2.5rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
 }

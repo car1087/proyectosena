@@ -3,21 +3,20 @@
 
   <form id="formEnfermedades" class="form-enfermedades">
     <div id="listaEnfermedades">
-      <!-- Las enfermedades se agregarán dinámicamente aquí -->
-      <div class="enfermedad-item">
-        <textarea disabled> </textarea>
-        <div class="acciones">
-          <button type="button" class="btn-editar">✏️</button>
-          <button type="button" class="btn-eliminar">🗑️</button>
+      <!-- Ejemplo inicial -->
+      <div class="enfermedad">
+        <textarea placeholder="Ingrese una enfermedad..." required></textarea>
+        <div class="boton-acciones">
+          <button type="button" class="btn btn-editar">✏️ Editar</button>
+          <button type="button" class="btn btn-eliminar">🗑️ Eliminar</button>
         </div>
       </div>
     </div>
 
     <div class="botonera">
-     <button type="button" id="btnAgregar" class="btn">➕ Agregar enfermedad</button>
-     <button type="button" class="btn btn-volver" onclick="cargarModulo('modulos/editar_informacion.html')">← Volver</button>
-     <button type="submit" class="btn btn-guardar">💾 Guardar cambios</button>
-      
+      <button type="button" id="btnAgregar" class="btn">➕ Agregar enfermedad</button>
+      <button type="button" class="btn btn-volver" onclick="cargarModulo('modulos/editar_informacion.html')">← Volver</button>
+      <button type="submit" class="btn btn-guardar">💾 Guardar cambios</button>
     </div>
   </form>
 </div>

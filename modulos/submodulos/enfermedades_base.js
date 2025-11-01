@@ -4,18 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formEnfermedades");
 
   // Agregar una nueva enfermedad
-  btnAgregar.addEventListener("click", () => {
+    btnAgregar.addEventListener("click", () => {
     const nueva = document.createElement("div");
-    nueva.classList.add("enfermedad-item");
+    nueva.classList.add("enfermedad"); // antes era "enfermedad-item"
     nueva.innerHTML = `
       <textarea placeholder="Ingrese una enfermedad..." required></textarea>
-      <div class="acciones">
-        <button type="button" class="btn-editar">✏️</button>
-        <button type="button" class="btn-eliminar">🗑️</button>
+      <div class="boton-acciones">
+        <button type="button" class="btn btn-editar">✏️ Editar</button>
+        <button type="button" class="btn btn-eliminar">🗑️ Eliminar</button>
       </div>
     `;
     lista.appendChild(nueva);
   });
+
 
   // Delegación de eventos para editar o eliminar
   lista.addEventListener("click", (e) => {
