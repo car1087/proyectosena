@@ -529,6 +529,235 @@ body {
   }
 }
 
+/* =====================================================
+   Módulo: Dispositivo QR
+===================================================== */
+.opciones-submodulos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los enlaces a la izquierda */
+  gap: 1.2rem;
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.link-submodulo {
+  font-size: 1.15rem;
+  color: #333333; /* Gris oscuro */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.link-submodulo:hover {
+  color: var(--azul);
+  text-decoration: underline;
+}
+
+/* ============================
+   Submódulo: Ver Código QR
+============================ */
+.contenido-qr {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.columna-id,
+.columna-qr {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.id-unico {
+  font-weight: 700;
+  font-size: 1.1rem;
+  background-color: #f4f4f4;
+  padding: 0.7rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+.qr-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
+}
+
+#correo {
+  border-radius: 1.2rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  width: 100%;
+  background-color: #fafafa;
+  transition: border-color 0.2s ease;
+}
+
+#correo:focus {
+  border-color: var(--azul);
+  background-color: #fff;
+  outline: none;
+}
+
+/* 🔵 Todos los botones con el mismo color azul */
+.btn,
+.btn-azul,
+.btn-volver,
+.btn-guardar {
+  background-color: var(--azul);
+  color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 0.8rem 1.8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn:hover,
+.btn-azul:hover,
+.btn-volver:hover,
+.btn-guardar:hover {
+  background-color: #4DA8DA;
+  transform: translateY(-2px);
+}
+
+.botonera {
+  margin-top: 2rem;
+}
+
+@media (max-width: 700px) {
+  .contenido-qr {
+    grid-template-columns: 1fr;
+  }
+
+  .qr-container {
+    min-height: 160px;
+  }
+}
+/* Contenedor del botón volver alineado a la izquierda */
+.botonera {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
+
+/* Estilo uniforme del botón azul */
+.btn-volver {
+  background-color: var(--azul);
+  color: #fff;
+  border-radius: 1.5rem;
+  padding: 0.8rem 1.8rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-volver:hover {
+  background-color: #4DA8DA;
+  transform: translateY(-2px);
+}
+/* ======= Sección QR e ID ======= */
+.info-qr-id {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  justify-content: flex-start;
+}
+
+.qr-mini {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+}
+
+.info-qr-texto p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+/* Estado visual del dispositivo */
+.estado-activo {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.estado-inactivo {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.estado-parcial {
+  color: #f0ad4e;
+  font-weight: 600;
+}
+
+/* ======= Lista de contactos ======= */
+.lista-contactos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contacto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.contacto input {
+  flex: 1;
+  border-radius: 1.2rem;
+  padding: 0.8rem 1rem;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+/* ======= Botones de estado ======= */
+.estado-toggle {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-estado {
+  background-color: #ccc;
+  color: #fff;
+  border-radius: 1.2rem;
+  padding: 0.4rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-estado.activo.seleccionado {
+  background-color: var(--azul);
+}
+
+.btn-estado.inactivo.seleccionado {
+  background-color: #ff6b6b;
+}
+
+
 /* ==============================
    Responsividad
 ============================== */
