@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==============================
-// Cargar módulos dinámicamente (versión final)
+// Cargar módulos dinámicamente
 // ==============================
 function cargarModulo(ruta) {
   const contenedor = document.getElementById("contenido-dinamico");
@@ -112,6 +112,19 @@ function cargarModulo(ruta) {
             console.warn("⚠️ No se encontró la clase .modulo dentro de mi_informacion_medica.html");
           }
         }
+
+        // 🧩 NUEVO: ejecutar scripts incluidos en el HTML cargado
+        const scripts = contenedor.querySelectorAll("script");
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          document.body.appendChild(newScript);
+          oldScript.remove();
+        });
       }, 200);
     })
     .catch(err => {
