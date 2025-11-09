@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="../dashboard.css">
+
+<div class="modulo">
+  <h2>Código QR e ID único</h2>
+
+  <div class="contenido-qr">
+    <!-- Columna izquierda -->
+    <div class="columna-id">
+      <div class="form-group">
+        <label>ID único</label>
+        <p id="idUnico" class="id-unico"> </p>
+      </div>
+
+      <div class="form-group">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" placeholder=" ">
+      </div>
+
+      <button class="btn btn-azul" id="btnEnviar">Enviar QR por Email</button>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="columna-qr">
+      <label>Código QR</label>
+      <div id="qrContainer" class="qr-container"></div>
+      <button class="btn btn-azul btn-descargar" id="btnDescargar">Descargar imagen</button>
+    </div>
+  </div>
+
+   <div class="botonera">
+  <button type="button" class="btn btn-azul btn-volver" onclick="cargarModulo('modulos/dispositivo_qr.html')">
+    ← Volver
+  </button>
+</div>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="ver_qr.js"></script>
+</div>
