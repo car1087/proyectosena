@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <title>Tutorial de PILD</title>
+</head>
+<body>
+  <main class="tutorial">
+    <h1 class="brand-title">Tutorial de uso de PILD</h1>
+    
+    <h2>Índice</h2>
+    <ol>
+      <li><a href="#registro">Cómo crear una cuenta</a></li>
+      <li><a href="#iniciosesion">Cómo iniciar sesión</a></li>
+      <li><a href="#recuperar">Cómo recuperar tu contraseña</a></li>
+    </ol>
+
+    <section id="registro">
+      <h2>Cómo crear una cuenta</h2>
+      <img src="01.jpg" alt="Registro en PILD" width="300">
+      <p>Para crear una cuenta en PILD, haz clic en <strong>"Crear Cuenta"</strong>, completa el formulario con tus datos y confirma tu correo electrónico. 
+      Una vez registrado, podrás acceder a todas las funcionalidades de la plataforma.</p>
+    </section>
+
+    <section id="iniciosesion">
+      <h2>Cómo iniciar sesión</h2>
+      <img src="01.jpg" alt="Inicio de sesión en PILD" width="300">
+      <p>En la pantalla principal de PILD, introduce tu correo electrónico y tu contraseña. 
+      Luego haz clic en <strong>"Iniciar Sesión"</strong>. 
+      Si tus credenciales son correctas, serás redirigido a tu panel de usuario.</p>
+    </section>
+
+    <section id="recuperar">
+      <h2>Cómo recuperar tu contraseña</h2>
+      <img src="01.jpg" alt="Recuperar contraseña en PILD" width="300">
+      <p>Si olvidaste tu contraseña, selecciona la opción <strong>"¿Olvidaste tu Contraseña?"</strong>. 
+      Ingresa tu correo electrónico y recibirás un enlace para restablecer tu clave de forma segura.</p>
+    </section>
+
+    <p class="auth-links">
+      <a href="index.html">⬅ Volver al inicio de sesión</a>
+    </p>
+  </main>
+  <script>
+// Scroll suave para enlaces internos
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+        }
+    });
+});
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>

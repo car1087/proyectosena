@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const authRoutes = require('./interfaces/http/routes/auth');
+const dashboardRoutes = require('./interfaces/http/routes/dashboard.routes');
 
 const app = express();
 const projectRoot = '/Users/user/Desktop/proyecto sena/proyectosena';
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

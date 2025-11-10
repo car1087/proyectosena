@@ -1,0 +1,49 @@
+<!-- ============================================
+     Módulo: Ajustes de Cuenta
+     Descripción: menú principal con modo oscuro
+=============================================== -->
+
+<link rel="stylesheet" href="../dashboard.css">
+
+<div class="card">
+  <h2>Ajustes de Cuenta</h2>
+
+  <div class="opciones-submodulos">
+    <a
+      href="#"
+      onclick="cargarModulo('modulos/submodulos/cambiar_correo.html')"
+      class="link-submodulo"
+    >
+      Cambiar Correo o Contraseña
+    </a>
+
+    <a
+      href="#"
+      onclick="cargarModulo('modulos/submodulos/notificaciones.html')"
+      class="link-submodulo"
+    >
+      Preferencias de Notificaciones
+    </a>
+
+    <a
+      href="#"
+      onclick="cargarModulo('modulos/submodulos/eliminar_cuenta.html')"
+      class="link-submodulo"
+    >
+      Eliminar Cuenta
+    </a>
+  </div>
+
+  <hr />
+
+  <div class="modo-oscuro-config" style="text-align:center; margin-top:1rem;">
+    <label for="darkModeSwitch">Activar modo oscuro</label>
+    <input type="checkbox" id="darkModeSwitch" style="margin-left:8px;" />
+  </div>
+
+  
+  </div>
+</div>
+
+<script src="modulos/ajustes.js"></script>
+
