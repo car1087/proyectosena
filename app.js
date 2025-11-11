@@ -42,25 +42,32 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 const response = await fetch('/api/auth/login', {
                     method: 'POST',
+                    credentials: 'same-origin',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({ email, password })
                 });
 
                 const data = await response.json();
-                
+
                 if (!response.ok) {
                     throw new Error(data.error || 'Error en el inicio de sesión');
                 }
 
-                // Guardar el token y datos del usuario
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                localStorage.setItem('activeUser', email);
-                
-                // Redirigir al panel
-                window.location.href = "panel.html";
+                // Save token and user info to localStorage
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                }
+                if (data.user && data.user.email) {
+                    localStorage.setItem('activeUser', data.user.email);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                } else {
+                    localStorage.setItem('activeUser', email);
+                }
+
+                window.location.href = "dashboard.html";
                 
             } catch (error) {
                 alert(error.message);
@@ -154,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 const response = await fetch('/api/auth/register', {
                     method: 'POST',
+                    credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -174,8 +182,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     throw new Error(data.error || 'Error en el registro');
                 }
 
-                alert("Registro exitoso. Ahora puedes iniciar sesión.");
-                window.location.href = "index.html";
+                // Save token and user info
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                }
+                if (data.user && data.user.email) {
+                    localStorage.setItem('activeUser', data.user.email);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                }
+
+                alert("Registro exitoso. Redirigiendo al dashboard...");
+                window.location.href = "dashboard.html";
             } catch (error) {
                 alert(error.message);
             }
@@ -186,16 +203,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const userEmailEl = document.getElementById("userEmail");
     const logoutBtn = document.getElementById("logoutBtn");
     if (userEmailEl || logoutBtn) {
-        const activeUser = localStorage.getItem("activeUser");
-        if (!activeUser) {
-            // Si no hay sesión, volver al inicio de sesión
-            window.location.href = "index.html";
-            return;
-        }
-        if (userEmailEl) userEmailEl.textContent = activeUser;
+        // Try to get current user from server (cookie-based session) if localStorage is empty
+        const ensureUserFromServer = async () => {
+            try {
+                const resp = await fetch('/api/auth/me', { credentials: 'same-origin' });
+                if (!resp.ok) throw new Error('No authenticated');
+                const json = await resp.json();
+                const email = json?.user?.email;
+                if (email) {
+                    localStorage.setItem('activeUser', email);
+                    localStorage.setItem('user', JSON.stringify(json.user));
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } catch (e) {
+                window.location.href = 'index.html';
+            }
+        };
+
+        (async () => {
+            const activeUser = localStorage.getItem("activeUser");
+            if (!activeUser) {
+                await ensureUserFromServer();
+            }
+            const finalUser = localStorage.getItem('activeUser');
+            if (!finalUser) { window.location.href = 'index.html'; return; }
+            if (userEmailEl) userEmailEl.textContent = finalUser;
+        })();
+
         if (logoutBtn) {
-            logoutBtn.addEventListener("click", () => {
+            logoutBtn.addEventListener("click", async () => {
+                try {
+                    await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+                } catch (e) {
+                    // ignore
+                }
                 localStorage.removeItem("activeUser");
+                localStorage.removeItem('user');
                 window.location.href = "index.html";
             });
         }

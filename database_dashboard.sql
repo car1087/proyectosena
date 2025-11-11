@@ -1,7 +1,7 @@
 -- Tabla de información médica
 CREATE TABLE informacion_medica (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT UNSIGNED NOT NULL,
+    user_id INT NOT NULL,
     tipo_sangre VARCHAR(10),
     alergias TEXT,
     medicamentos TEXT,
@@ -18,7 +18,7 @@ CREATE TABLE informacion_medica (
 -- Tabla de contactos de emergencia
 CREATE TABLE contactos_emergencia (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT UNSIGNED NOT NULL,
+    user_id INT NOT NULL,
     nombre VARCHAR(200) NOT NULL,
     relacion VARCHAR(100) NOT NULL,
     telefono VARCHAR(32) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE contactos_emergencia (
 -- Tabla de ajustes de cuenta
 CREATE TABLE ajustes_cuenta (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT UNSIGNED NOT NULL,
+    user_id INT NOT NULL,
     avatar_url VARCHAR(255),
     biografia TEXT,
     tema ENUM('claro', 'oscuro') NOT NULL DEFAULT 'claro',

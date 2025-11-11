@@ -77,33 +77,37 @@ async function cargarContactosEmergencia(token) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-    // Verificar autenticación
-    const token = await verificarAutenticacion();
-    if (!token) return;
+// Función principal que inicializa el frontend del dashboard
+async function initializeFrontend() {
+  // Verificar autenticación
+  const token = await verificarAutenticacion();
+  if (!token) return;
 
-    // Inicializar UI
-    const toggleBtn = document.getElementById("toggle-btn");
-    const sidebar = document.getElementById("sidebar");
+  // Inicializar UI (menú lateral / toggle)
+  const toggleBtn = document.getElementById("toggle-btn");
+  const sidebar = document.getElementById("sidebar");
 
-    if (toggleBtn && sidebar) {
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("active");
-        });
-    } else {
-        console.warn("⚠️ No se encontró el botón o sidebar en el DOM.");
-    }
+  if (toggleBtn && sidebar) {
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  } else {
+    console.warn("⚠️ No se encontró el botón o sidebar en el DOM.");
+  }
 
-    // Cargar datos del usuario
-    try {
-        await Promise.all([
-            cargarInformacionMedica(token),
-            cargarContactosEmergencia(token)
-        ]);
-    } catch (error) {
-        console.error('Error al cargar datos del dashboard:', error);
-    }
-});
+  // Cargar datos del usuario (información médica y contactos)
+  try {
+    await Promise.all([
+      cargarInformacionMedica(token),
+      cargarContactosEmergencia(token)
+    ]);
+  } catch (error) {
+    console.error('Error al cargar datos del dashboard:', error);
+  }
+
+  // Cargar módulo inicial (Inicio)
+  cargarModulo('modulos/inicio.html');
+}
 
 // ==============================
 // Funcionalidad del buscador
@@ -137,17 +141,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==============================
-// Simulación de cierre de sesión
+// Cierre de sesión
 // ==============================
 document.addEventListener("DOMContentLoaded", () => {
   const logoutLink = document.querySelector(".logout");
   if (!logoutLink) return;
 
-  logoutLink.addEventListener("click", (e) => {
+  logoutLink.addEventListener("click", async (e) => {
     e.preventDefault();
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    try {
+      await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+    } catch (e) {
+      // ignore
+    }
     localStorage.removeItem("activeUser");
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem("nombreUsuario");
+    alert("Sesión cerrada correctamente");
     window.location.href = "index.html";
   });
 });
@@ -226,9 +237,27 @@ function cargarModulo(ruta) {
 }
 
 // ==============================
-// Módulo inicial (Inicio)
+// Ejecutar inicialización tras carga del DOM
 // ==============================
 document.addEventListener("DOMContentLoaded", () => {
-  cargarModulo('modulos/inicio.html');
+  // Intentar inicializar inmediatamente (si el email ya está disponible)
+  initializeFrontend().catch(err => console.error('Error en initializeFrontend:', err));
+
+  // Además, observar #userEmail: cuando el email sea escrito por `app.js` llamamos a initializeFrontend()
+  const userEmailEl = document.getElementById('userEmail');
+  if (userEmailEl) {
+    if (userEmailEl.textContent && userEmailEl.textContent.trim() !== '') {
+      // Ya está presente
+      initializeFrontend().catch(err => console.error('Error en initializeFrontend:', err));
+    } else {
+      const observer = new MutationObserver((mutations, obs) => {
+        if (userEmailEl.textContent && userEmailEl.textContent.trim() !== '') {
+          obs.disconnect();
+          initializeFrontend().catch(err => console.error('Error en initializeFrontend:', err));
+        }
+      });
+      observer.observe(userEmailEl, { childList: true, characterData: true, subtree: true });
+    }
+  }
 });
 

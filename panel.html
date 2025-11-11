@@ -45,13 +45,44 @@
         </div>
 
         <div class="auth-links" style="margin-top: 18px;">
-          <a href="index.html">Volver al inicio de sesión</a>
+          <a href="dashboard.html">Ir al Dashboard</a>
         </div>
 
         <button id="logoutBtn" class="button" type="button" style="margin-top: 18px;">Cerrar Sesión</button>
       </div>
     </section>
   </main>
+  <!-- Si el servidor puso el JWT en cookie (flujos con res.redirect), copiarlo a localStorage para que el frontend lo use -->
+  <script>
+    (function() {
+      try {
+        const match = document.cookie.match('(?:^|; )token=([^;]*)');
+        if (match) {
+          const token = decodeURIComponent(match[1]);
+          // Guardar token en localStorage para que el frontend lo use
+          localStorage.setItem('token', token);
+          // Intentar decodificar el payload del JWT para obtener el email y id
+          const parts = token.split('.');
+          if (parts.length === 3) {
+            const payload = parts[1]
+              .replace(/-/g, '+')
+              .replace(/_/g, '/');
+            const json = decodeURIComponent(atob(payload).split('').map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const data = JSON.parse(json);
+            if (data.email) {
+              localStorage.setItem('activeUser', data.email);
+              localStorage.setItem('user', JSON.stringify({ id: data.id, email: data.email }));
+            }
+          }
+        }
+      } catch (e) {
+        // no bloquear la carga si algo falla
+        console.warn('No se pudo copiar token desde cookie a localStorage', e);
+      }
+    })();
+  </script>
 
   <script src="app.js" defer></script>
 </body>
