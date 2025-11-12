@@ -197,6 +197,14 @@ function cargarModulo(ruta) {
         if (esInicio) {
           searchBar?.classList.remove("oculto");
           userAvatar?.classList.remove("oculto");
+
+          // Set user name in inicio module
+          const user = JSON.parse(localStorage.getItem('user') || '{}');
+          const nombreUsuarioEl = contenedor.querySelector('#nombreUsuario');
+          if (nombreUsuarioEl && user.fullName) {
+            const firstName = user.fullName.split(' ')[0];
+            nombreUsuarioEl.textContent = firstName;
+          }
         } else {
           searchBar?.classList.add("oculto");
           userAvatar?.classList.add("oculto");

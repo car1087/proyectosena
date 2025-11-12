@@ -21,7 +21,7 @@ class LoginUseCase {
       { expiresIn: '24h' }
     );
 
-    return { token, user: { id: user.id, email: user.email } };
+    return { token, user: { id: user.id, email: user.email, fullName: user.full_name } };
   }
 }
 
