@@ -1,7 +1,89 @@
 // ==============================
 // Menú lateral (modo responsive)
 // ==============================
-document.addEventListener("DOMContentLoaded", () => {
+// Verificar autenticación y cargar datos del usuario
+async function verificarAutenticacion() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        console.log('No hay token, redirigiendo al login...');
+        window.location.href = 'index.html';
+        return false;
+    }
+    return token;
+}
+
+// Configuración común para los fetch
+const getFetchConfig = (token) => ({
+    headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    }
+});
+
+// Cargar información médica
+async function cargarInformacionMedica(token) {
+    try {
+        const response = await fetch('/api/dashboard/informacion-medica', getFetchConfig(token));
+        
+        if (!response.ok) {
+            throw new Error('Error al cargar información médica');
+        }
+
+        const data = await response.json();
+        console.log('Información médica cargada:', data);
+
+        // Actualizar campos del formulario si existe
+        const infoForm = document.querySelector('.info-form');
+        if (infoForm) {
+            if (data) {
+                const tipoSangreInput = infoForm.querySelector('input[value=" "]');
+                if (tipoSangreInput) tipoSangreInput.value = data.tipo_sangre || ' ';
+
+                const textareas = infoForm.querySelectorAll('textarea');
+                if (textareas[0]) textareas[0].value = data.alergias || ' ';
+                if (textareas[1]) textareas[1].value = data.medicamentos || ' ';
+                if (textareas[2]) textareas[2].value = data.notas_medicas || ' ';
+            }
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error al cargar información médica:', error);
+        if (error.status === 401) {
+            window.location.href = 'index.html';
+        }
+        return null;
+    }
+}
+
+// Cargar contactos de emergencia
+async function cargarContactosEmergencia(token) {
+    try {
+        const response = await fetch('/api/dashboard/contactos-emergencia', getFetchConfig(token));
+        
+        if (!response.ok) {
+            throw new Error('Error al cargar contactos de emergencia');
+        }
+
+        const contactos = await response.json();
+        console.log('Contactos de emergencia cargados:', contactos);
+        return contactos;
+    } catch (error) {
+        console.error('Error al cargar contactos de emergencia:', error);
+        if (error.status === 401) {
+            window.location.href = 'index.html';
+        }
+        return [];
+    }
+}
+
+// Función principal que inicializa el frontend del dashboard
+async function initializeFrontend() {
+  // Verificar autenticación
+  const token = await verificarAutenticacion();
+  if (!token) return;
+
+  // Inicializar UI (menú lateral / toggle)
   const toggleBtn = document.getElementById("toggle-btn");
   const sidebar = document.getElementById("sidebar");
 
@@ -12,7 +94,20 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     console.warn("⚠️ No se encontró el botón o sidebar en el DOM.");
   }
-});
+
+  // Cargar datos del usuario (información médica y contactos)
+  try {
+    await Promise.all([
+      cargarInformacionMedica(token),
+      cargarContactosEmergencia(token)
+    ]);
+  } catch (error) {
+    console.error('Error al cargar datos del dashboard:', error);
+  }
+
+  // Cargar módulo inicial (Inicio)
+  cargarModulo('modulos/inicio.html');
+}
 
 // ==============================
 // Funcionalidad del buscador
@@ -46,17 +141,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==============================
-// Simulación de cierre de sesión
+// Cierre de sesión
 // ==============================
 document.addEventListener("DOMContentLoaded", () => {
   const logoutLink = document.querySelector(".logout");
   if (!logoutLink) return;
 
-  logoutLink.addEventListener("click", (e) => {
+  logoutLink.addEventListener("click", async (e) => {
     e.preventDefault();
+    try {
+      await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+    } catch (e) {
+      // ignore
+    }
+    localStorage.removeItem("activeUser");
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     localStorage.removeItem("nombreUsuario");
     alert("Sesión cerrada correctamente");
-    location.reload();
+    window.location.href = "index.html";
   });
 });
 
@@ -94,6 +197,14 @@ function cargarModulo(ruta) {
         if (esInicio) {
           searchBar?.classList.remove("oculto");
           userAvatar?.classList.remove("oculto");
+
+          // Set user name in inicio module
+          const user = JSON.parse(localStorage.getItem('user') || '{}');
+          const nombreUsuarioEl = contenedor.querySelector('#nombreUsuario');
+          if (nombreUsuarioEl && user.fullName) {
+            const firstName = user.fullName.split(' ')[0];
+            nombreUsuarioEl.textContent = firstName;
+          }
         } else {
           searchBar?.classList.add("oculto");
           userAvatar?.classList.add("oculto");
@@ -134,9 +245,27 @@ function cargarModulo(ruta) {
 }
 
 // ==============================
-// Módulo inicial (Inicio)
+// Ejecutar inicialización tras carga del DOM
 // ==============================
 document.addEventListener("DOMContentLoaded", () => {
-  cargarModulo('modulos/inicio.html');
+  // Intentar inicializar inmediatamente (si el email ya está disponible)
+  initializeFrontend().catch(err => console.error('Error en initializeFrontend:', err));
+
+  // Además, observar #userEmail: cuando el email sea escrito por `app.js` llamamos a initializeFrontend()
+  const userEmailEl = document.getElementById('userEmail');
+  if (userEmailEl) {
+    if (userEmailEl.textContent && userEmailEl.textContent.trim() !== '') {
+      // Ya está presente
+      initializeFrontend().catch(err => console.error('Error en initializeFrontend:', err));
+    } else {
+      const observer = new MutationObserver((mutations, obs) => {
+        if (userEmailEl.textContent && userEmailEl.textContent.trim() !== '') {
+          obs.disconnect();
+          initializeFrontend().catch(err => console.error('Error en initializeFrontend:', err));
+        }
+      });
+      observer.observe(userEmailEl, { childList: true, characterData: true, subtree: true });
+    }
+  }
 });
 

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Login
     const loginForm = document.querySelector(".auth-form");
     if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
+        loginForm.addEventListener("submit", async (e) => {
             e.preventDefault(); // evitar envío por defecto
 
             const email = loginForm.email.value.trim();
@@ -38,16 +38,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Verificar usuario en localStorage o usuario demo
-            const users = getUsers();
-            const match = users.find(u => u.email === email && u.password === password);
+            // Llamar a la API de login
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
 
-            if (match || (email === DEMO_USER.email && password === DEMO_USER.password)) {
-                // Guardar sesión y redirigir al panel
-                localStorage.setItem("activeUser", email);
-                window.location.href = "panel.html";
-            } else {
-                alert("Correo o contraseña incorrectos");
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error en el inicio de sesión');
+                }
+
+                // Save token and user info to localStorage
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                }
+                if (data.user && data.user.email) {
+                    localStorage.setItem('activeUser', data.user.email);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                } else {
+                    localStorage.setItem('activeUser', email);
+                }
+
+                window.location.href = "dashboard.html";
+                
+            } catch (error) {
+                alert(error.message);
             }
         });
     }
@@ -118,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Inicializar estado del botón en carga
         validateRegisterForm();
 
-        registerForm.addEventListener("submit", (e) => {
+        registerForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             // Validación final
@@ -127,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const role = (roleInput?.value || 'usuario').trim();
+            const roleCode = (roleInput?.value || 'usuario').trim();
             const fullName = (fullNameEl?.value || '').trim();
             const docType = (docTypeEl?.value || '').trim();
             const docNumber = onlyDigits(docNumberEl?.value || '').trim();
@@ -135,27 +158,44 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = (emailEl?.value || '').trim();
             const password = (passwordEl?.value || '').trim();
 
-            const users = getUsers();
-            const exists = users.some(u => u.email === email);
-            if (exists || email === DEMO_USER.email) {
-                alert("Este correo ya está registrado.");
-                return;
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        roleCode,
+                        fullName,
+                        docType,
+                        docNumber,
+                        phone
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error en el registro');
+                }
+
+                // Save token and user info
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                }
+                if (data.user && data.user.email) {
+                    localStorage.setItem('activeUser', data.user.email);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                }
+
+                alert("Registro exitoso. Redirigiendo al dashboard...");
+                window.location.href = "dashboard.html";
+            } catch (error) {
+                alert(error.message);
             }
-
-            users.push({ 
-                email, 
-                password, 
-                role,
-                fullName,
-                docType,
-                docNumber,
-                phone,
-                createdAt: new Date().toISOString()
-            });
-            saveUsers(users);
-
-            alert("Registro exitoso. Ahora puedes iniciar sesión.");
-            window.location.href = "index.html";
         });
     }
 
@@ -163,16 +203,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const userEmailEl = document.getElementById("userEmail");
     const logoutBtn = document.getElementById("logoutBtn");
     if (userEmailEl || logoutBtn) {
-        const activeUser = localStorage.getItem("activeUser");
-        if (!activeUser) {
-            // Si no hay sesión, volver al inicio de sesión
-            window.location.href = "index.html";
-            return;
-        }
-        if (userEmailEl) userEmailEl.textContent = activeUser;
+        // Try to get current user from server (cookie-based session) if localStorage is empty
+        const ensureUserFromServer = async () => {
+            try {
+                const resp = await fetch('/api/auth/me', { credentials: 'same-origin' });
+                if (!resp.ok) throw new Error('No authenticated');
+                const json = await resp.json();
+                const email = json?.user?.email;
+                if (email) {
+                    localStorage.setItem('activeUser', email);
+                    localStorage.setItem('user', JSON.stringify(json.user));
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } catch (e) {
+                window.location.href = 'index.html';
+            }
+        };
+
+        (async () => {
+            const activeUser = localStorage.getItem("activeUser");
+            if (!activeUser) {
+                await ensureUserFromServer();
+            }
+            const finalUser = localStorage.getItem('activeUser');
+            if (!finalUser) { window.location.href = 'index.html'; return; }
+            if (userEmailEl) userEmailEl.textContent = finalUser;
+        })();
+
         if (logoutBtn) {
-            logoutBtn.addEventListener("click", () => {
+            logoutBtn.addEventListener("click", async () => {
+                try {
+                    await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+                } catch (e) {
+                    // ignore
+                }
                 localStorage.removeItem("activeUser");
+                localStorage.removeItem('user');
                 window.location.href = "index.html";
             });
         }
