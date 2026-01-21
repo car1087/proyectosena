@@ -140,3 +140,34 @@ document.addEventListener("DOMContentLoaded", () => {
   cargarModulo('modulos/inicio.html');
 });
 
+// ==============================
+// Selector de rol (Usuario / Cuidador)
+// ==============================
+document.addEventListener("DOMContentLoaded", () => {
+  const selectorRol = document.getElementById("selector-rol");
+  const userRoleText = document.getElementById("user-role");
+
+  if (!selectorRol) return;
+
+  // Rol inicial
+  const rolGuardado = localStorage.getItem("rolActivo") || "usuario";
+  aplicarRol(rolGuardado);
+  selectorRol.value = rolGuardado;
+
+  // Cambio de rol
+  selectorRol.addEventListener("change", (e) => {
+    const nuevoRol = e.target.value;
+    localStorage.setItem("rolActivo", nuevoRol);
+    aplicarRol(nuevoRol);
+    cargarModulo("modulos/inicio.html");
+  });
+
+  function aplicarRol(rol) {
+    document.body.className = `rol-${rol}`;
+
+    if (userRoleText) {
+      userRoleText.textContent =
+        rol === "cuidador" ? "Rol Cuidador" : "Rol Usuario";
+    }
+  }
+});

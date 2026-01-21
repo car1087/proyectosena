@@ -1060,4 +1060,76 @@ body {
   font-size: 14px;
 }
 
-/* Los botones usan las mismas clases de tu programa para mantener estilo */
+/* ==========================
+   Selector de rol
+========================== */
+.selector-rol {
+  background-color: rgba(255,255,255,0.15);
+  color: #fff;
+  border: none;
+  border-radius: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.selector-rol option {
+  color: #333;
+}
+/* ==========================
+   Permisos por rol
+========================== */
+
+/* USUARIO */
+.rol-usuario .menu-pacientes,
+.rol-usuario .menu-solicitudes {
+  display: none !important;
+}
+
+/* CUIDADOR */
+.rol-cuidador .menu-mi-info,
+.rol-cuidador .menu-qr {
+  display: none !important;
+}
+/* ==========================
+   Item paciente (con input)
+========================== */
+
+.paciente-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: #f2f2f2;
+  border-radius: 1.5rem;
+  padding: 1rem 1.5rem;
+  gap: 1rem;
+}
+
+.campo-paciente {
+  flex: 1;
+}
+
+.campo-paciente label {
+  display: block;
+  font-size: 0.75rem;
+  color: #777;
+  margin-bottom: 0.3rem;
+}
+
+.campo-paciente input {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  background-color: #fff;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Alinear enlace */
+.ver-info {
+  white-space: nowrap;
+  align-self: center;
+}
+

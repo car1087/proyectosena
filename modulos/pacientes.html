@@ -1,0 +1,54 @@
+<section class="modulo pacientes-modulo">
+
+  <h2 class="titulo-modulo">Mis Pacientes</h2>
+
+  <div class="lista-pacientes">
+
+    <!-- Paciente -->
+    <div class="paciente-item">
+      <div class="campo-paciente">
+        <label>Nombre paciente</label>
+        <input type="text" value="" disabled>
+      </div>
+      <a href="#" class="ver-info" onclick="verInfoPaciente(1)">
+        Ver información
+      </a>
+    </div>
+
+    <div class="paciente-item">
+      <div class="campo-paciente">
+        <label>Nombre paciente</label>
+        <input type="text" value="" disabled>
+      </div>
+      <a href="#" class="ver-info" onclick="verInfoPaciente(2)">
+        Ver información
+      </a>
+    </div>
+
+    <div class="paciente-item">
+      <div class="campo-paciente">
+        <label>Nombre paciente</label>
+        <input type="text" value="" disabled>
+      </div>
+      <a href="#" class="ver-info" onclick="verInfoPaciente(3)">
+        Ver información
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Paginación -->
+  <div class="paginacion">
+    <span>pag 1...</span>
+  </div>
+
+</section>
+
+<script>
+  function verInfoPaciente(idPaciente) {
+    localStorage.setItem("pacienteSeleccionado", idPaciente);
+    localStorage.setItem("modoVista", "lectura"); // 👈 clave
+    cargarModulo("modulos/mi_informacion.html");
+  }
+</script>
+
