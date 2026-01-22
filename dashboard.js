@@ -9,40 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.addEventListener("click", () => {
       sidebar.classList.toggle("active");
     });
-  } else {
-    console.warn("⚠️ No se encontró el botón o sidebar en el DOM.");
   }
-});
-
-// ==============================
-// Funcionalidad del buscador
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("search-input");
-  const searchBtn = document.getElementById("search-btn");
-  const cards = document.querySelectorAll(".card");
-
-  if (!searchInput || !searchBtn) return; // seguridad
-
-  function filtrarTarjetas() {
-    const query = searchInput.value.toLowerCase().trim();
-
-    cards.forEach(card => {
-      const title = card.dataset.title.toLowerCase();
-      const desc = card.dataset.desc.toLowerCase();
-
-      if (title.includes(query) || desc.includes(query)) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
-      }
-    });
-  }
-
-  searchBtn.addEventListener("click", filtrarTarjetas);
-  searchInput.addEventListener("keyup", event => {
-    if (event.key === "Enter") filtrarTarjetas();
-  });
 });
 
 // ==============================
@@ -54,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   logoutLink.addEventListener("click", (e) => {
     e.preventDefault();
-    localStorage.removeItem("nombreUsuario");
+    sessionStorage.clear();
+    localStorage.clear();
     alert("Sesión cerrada correctamente");
     location.reload();
   });
@@ -82,7 +50,6 @@ function cargarModulo(ruta) {
       contenedor.style.opacity = 0;
 
       setTimeout(() => {
-        console.log("📄 Módulo cargado:", ruta);
         contenedor.innerHTML = html;
         contenedor.style.opacity = 1;
         window.scrollTo(0, 0);
@@ -108,12 +75,10 @@ function cargarModulo(ruta) {
             modulo.style.margin = "2rem auto";
             modulo.style.maxWidth = "1200px";
             modulo.style.width = "90%";
-          } else {
-            console.warn("⚠️ No se encontró la clase .modulo dentro de mi_informacion_medica.html");
           }
         }
 
-        // 🧩 NUEVO: ejecutar scripts incluidos en el HTML cargado
+        // Ejecutar scripts incluidos en el HTML cargado
         const scripts = contenedor.querySelectorAll("script");
         scripts.forEach(oldScript => {
           const newScript = document.createElement("script");
@@ -128,46 +93,60 @@ function cargarModulo(ruta) {
       }, 200);
     })
     .catch(err => {
-      contenedor.innerHTML = `<p style="color:red; padding:1rem;">❌ No se pudo cargar el módulo.<br>${err.message}</p>`;
-      console.error("Error al cargar el módulo:", err);
+      contenedor.innerHTML = `
+        <p style="color:red; padding:1rem;">
+          ❌ No se pudo cargar el módulo.<br>${err.message}
+        </p>`;
+      console.error(err);
     });
+}
+
+// ==============================
+// Ver información médica (solo lectura)
+// ==============================
+function verInfoMedica(event) {
+  event.preventDefault(); // evita recarga del <a>
+
+  sessionStorage.setItem("modoInfoMedica", "solo-lectura");
+  cargarModulo("modulos/mi_informacion_medica.html");
 }
 
 // ==============================
 // Módulo inicial (Inicio)
 // ==============================
 document.addEventListener("DOMContentLoaded", () => {
-  cargarModulo('modulos/inicio.html');
+  cargarModulo("modulos/inicio.html");
 });
-
 // ==============================
-// Selector de rol (Usuario / Cuidador)
+// Cambio de rol (Usuario / Cuidador)
 // ==============================
 document.addEventListener("DOMContentLoaded", () => {
   const selectorRol = document.getElementById("selector-rol");
-  const userRoleText = document.getElementById("user-role");
+  const userRoleSpan = document.getElementById("user-role");
 
-  if (!selectorRol) return;
+  if (!selectorRol || !userRoleSpan) return;
 
-  // Rol inicial
-  const rolGuardado = localStorage.getItem("rolActivo") || "usuario";
-  aplicarRol(rolGuardado);
+  // Cargar rol guardado o valor por defecto
+  const rolGuardado = localStorage.getItem("rolActivo") || selectorRol.value;
   selectorRol.value = rolGuardado;
+  userRoleSpan.textContent = capitalizarRol(rolGuardado);
 
-  // Cambio de rol
-  selectorRol.addEventListener("change", (e) => {
-    const nuevoRol = e.target.value;
+  // Escuchar cambios
+  selectorRol.addEventListener("change", () => {
+    const nuevoRol = selectorRol.value;
+
+    // Guardar rol
     localStorage.setItem("rolActivo", nuevoRol);
-    aplicarRol(nuevoRol);
+
+    // Mostrar rol en el avatar
+    userRoleSpan.textContent = capitalizarRol(nuevoRol);
+
+    // (opcional) Recargar inicio al cambiar rol
     cargarModulo("modulos/inicio.html");
   });
-
-  function aplicarRol(rol) {
-    document.body.className = `rol-${rol}`;
-
-    if (userRoleText) {
-      userRoleText.textContent =
-        rol === "cuidador" ? "Rol Cuidador" : "Rol Usuario";
-    }
-  }
 });
+
+// Utilidad
+function capitalizarRol(rol) {
+  return rol.charAt(0).toUpperCase() + rol.slice(1);
+}

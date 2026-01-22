@@ -197,8 +197,11 @@ body {
 .user-panel {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
 }
+
 
 .logout {
   color: var(--blanco);
@@ -211,13 +214,13 @@ body {
 }
 
 .user-avatar {
-  position: absolute;
-  right: 0rem;
-  bottom: -190px; /* si estaba -60, súbelo un poco */
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.6 rem;
+  position: relative;
   z-index: 5;
+  margin-top: 0.4 rem;
 }
 
 .avatar {
@@ -244,6 +247,18 @@ body {
   font-size: 1rem;
   transition: background 0.3s;
 }
+.selector-rol {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.7rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
 
 .logout:hover {
   background-color: rgba(255,255,255,0.3);

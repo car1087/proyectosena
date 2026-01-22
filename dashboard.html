@@ -35,6 +35,7 @@
         <li><a href="#" onclick="cargarModulo('modulos/mi_informacion_medica.html')"><span class="icon">🩺</span> Mi información médica</a></li>
         <li><a href="#" onclick="cargarModulo('modulos/pacientes.html')"><span class="icon">🧑‍⚕️</span> Mis pacientes</a></li>
         <li><a href="#" onclick="cargarModulo('modulos/contactos.html')"><span class="icon">👥</span> Contactos de emergencia</a></li>
+        <li><a href="#" onclick="cargarModulo('modulos/solicitud.html')"><span class="icon">📨</span> Solicitud de usuarios</a></li>
         <li><a href="#" onclick="cargarModulo('modulos/dispositivo_qr.html')"><span class="icon">🔳</span> Mi dispositivo QR</a></li>
         <li><a href="#" onclick="cargarModulo('modulos/ajustes.html')"><span class="icon">⚙️</span> Ajustes de cuenta</a></li>
       </ul>
@@ -49,18 +50,18 @@
   <div class="user-panel">
 
     <!-- 🔄 Selector de rol -->
-    <select id="selector-rol" class="selector-rol">
-      <option value="usuario">Usuario</option>
-      <option value="cuidador">Cuidador</option>
-    </select>
-
     <a href="#" class="logout">Cerrar sesión</a>
 
-    <div class="user-avatar">
-      <div class="avatar"></div>
-      <span class="user-role" id="user-role"></span>
-    </div>
-  </div>
+<div class="user-avatar">
+  <div class="avatar"></div>
+  <span class="user-role" id="user-role"></span>
+
+  <!-- Selector de rol debajo del avatar -->
+  <select id="selector-rol" class="selector-rol">
+    <option value="usuario">Usuario</option>
+    <option value="cuidador">Cuidador</option>
+  </select>
+</div>
 </header>
 
 
