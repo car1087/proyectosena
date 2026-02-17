@@ -196,9 +196,10 @@ body {
 
 .user-panel {
   display: flex;
-  align-items: center;
+  align-items: center;   /* centra verticalmente */
   gap: 1.5rem;
 }
+
 
 .logout {
   color: var(--blanco);
@@ -211,14 +212,13 @@ body {
 }
 
 .user-avatar {
-  position: absolute;
-  right: 0rem;
-  bottom: -190px; /* si estaba -60, súbelo un poco */
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 5;
+  justify-content: center;
+  margin-top: 170px; /* ajuste fino */
 }
+
 
 .avatar {
   width: 50px;
@@ -244,6 +244,18 @@ body {
   font-size: 1rem;
   transition: background 0.3s;
 }
+.selector-rol {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.7rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
 
 .logout:hover {
   background-color: rgba(255,255,255,0.3);
@@ -281,6 +293,7 @@ body {
   font-size: 1rem;
   color: var(--gris-oscuro);
 }
+
 
 /* ==============================
    Contenido principal
@@ -1060,4 +1073,76 @@ body {
   font-size: 14px;
 }
 
-/* Los botones usan las mismas clases de tu programa para mantener estilo */
+/* ==========================
+   Selector de rol
+========================== */
+.selector-rol {
+  background-color: rgba(255,255,255,0.15);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.selector-rol option {
+  color: #333333;
+}
+/* ==========================
+   Permisos por rol
+========================== */
+
+/* USUARIO */
+.rol-usuario .menu-pacientes,
+.rol-usuario .menu-solicitudes {
+  display: none !important;
+}
+
+/* CUIDADOR */
+.rol-cuidador .menu-mi-info,
+.rol-cuidador .menu-qr {
+  display: none !important;
+}
+/* ==========================
+   Item paciente (con input)
+========================== */
+
+.paciente-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: #f2f2f2;
+  border-radius: 1.5rem;
+  padding: 1rem 1.5rem;
+  gap: 1rem;
+}
+
+.campo-paciente {
+  flex: 1;
+}
+
+.campo-paciente label {
+  display: block;
+  font-size: 0.75rem;
+  color: #777;
+  margin-bottom: 0.3rem;
+}
+
+.campo-paciente input {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  background-color: #fff;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Alinear enlace */
+.ver-info {
+  white-space: nowrap;
+  align-self: center;
+}
+

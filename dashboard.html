@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Configuración básica del documento -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard PILD</title>
 
-  <!-- Estilos -->
+  <!-- Estilos principales del dashboard -->
   <link rel="stylesheet" href="dashboard.css">
+
+  <!-- Fuente Roboto desde Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos específicos del módulo editar información -->
   <link rel="stylesheet" href="modulos/submodulos/editar_informacion.css">
-
-
-
 </head>
 
 <body>
+  <!-- Contenedor principal del dashboard -->
   <div class="dashboard">
-    
-    <!-- 🧭 Sidebar -->
+
+    <!-- ===================== SIDEBAR ===================== -->
     <aside class="sidebar" id="sidebar">
+
+      <!-- Encabezado del sidebar con logo -->
       <div class="sidebar-header">
         <div class="logo">
           <img src="assets/img/img/LOGO_PILD.png" alt="Logo PILD" class="logo-pild">
@@ -29,81 +34,162 @@
         </div>
       </div>
 
-      <!-- 📋 Menú lateral -->
+      <!-- Menú lateral dinámico controlado por roles -->
+      <!-- Cada <li> tiene data-modulo para permitir control de permisos -->
       <ul class="menu">
-        <li><a href="#" onclick="cargarModulo('modulos/inicio.html')"><span class="icon">🏠</span> Inicio</a></li>
-        <li><a href="#" onclick="cargarModulo('modulos/mi_informacion_medica.html')"><span class="icon">🩺</span> Mi información médica</a></li>
-        <li><a href="#" onclick="cargarModulo('modulos/contactos.html')"><span class="icon">👥</span> Contactos de emergencia</a></li>
-        <li><a href="#" onclick="cargarModulo('modulos/dispositivo_qr.html')"><span class="icon">🔳</span> Mi dispositivo QR</a></li>
-        <li><a href="#" onclick="cargarModulo('modulos/ajustes.html')"><span class="icon">⚙️</span> Ajustes de cuenta</a></li>
+
+        <li data-modulo="inicio">
+          <a href="#" onclick="cargarModulo('modulos/inicio.html')">
+            <span class="icon">🏠</span> Inicio
+          </a>
+        </li>
+
+        <li data-modulo="info_medica">
+          <a href="#" onclick="cargarModulo('modulos/mi_informacion_medica.html')">
+            <span class="icon">🩺</span> Mi información médica
+          </a>
+        </li>
+
+        <li data-modulo="pacientes">
+          <a href="#" onclick="cargarModulo('modulos/pacientes.html')">
+            <span class="icon">🧑‍⚕️</span> Mis pacientes
+          </a>
+        </li>
+
+        <li data-modulo="contactos">
+          <a href="#" onclick="cargarModulo('modulos/contactos.html')">
+            <span class="icon">👥</span> Contactos de emergencia
+          </a>
+        </li>
+
+        <li data-modulo="solicitudes">
+          <a href="#" onclick="cargarModulo('modulos/solicitud.html')">
+            <span class="icon">📨</span> Solicitud de usuarios
+          </a>
+        </li>
+
+        <li data-modulo="qr">
+          <a href="#" onclick="cargarModulo('modulos/dispositivo_qr.html')">
+            <span class="icon">🔳</span> Mi dispositivo QR
+          </a>
+        </li>
+
+        <li data-modulo="ajustes">
+          <a href="#" onclick="cargarModulo('modulos/ajustes.html')">
+            <span class="icon">⚙️</span> Ajustes de cuenta
+          </a>
+        </li>
+
       </ul>
     </aside>
+    <!-- =================== FIN SIDEBAR =================== -->
 
-    <!-- 🧩 Contenido principal -->
+
+    <!-- ===================== CONTENIDO PRINCIPAL ===================== -->
     <main class="main-content">
 
-      <!-- 🔝 Barra superior -->
+      <!-- Barra superior del dashboard -->
       <header class="topbar">
+
+        <!-- Botón para contraer/expandir sidebar -->
         <button class="toggle-btn" id="toggle-btn">☰</button>
+
         <div class="user-panel">
+
+          <!-- Botón de cerrar sesión -->
           <a href="#" class="logout">Cerrar sesión</a>
+
+          <!-- Avatar y control de rol -->
           <div class="user-avatar">
+
+            <!-- Imagen o círculo de avatar -->
             <div class="avatar"></div>
-            <span class="user-role">Rol Usuario</span>
+
+            <!-- Texto que muestra el rol activo dinámicamente -->
+            <span class="user-role" id="user-role"></span>
+
+            <!-- Selector de rol -->
+            <!-- Este selector controla qué módulos se muestran -->
+             
+            <select id="selector-rol" class="selector-rol">
+              <option value="usuario">Usuario</option>
+              <option value="cuidador">Cuidador</option>
+            </select>
+
           </div>
         </div>
       </header>
+      <!-- =================== FIN TOPBAR =================== -->
 
-      <!-- 📦 Contenedor dinámico donde se cargarán los módulos -->
+
+      <!-- Contenedor donde se cargan los módulos dinámicamente -->
       <section class="content">
         <div id="contenido-dinamico">
-  <!-- Aquí se insertarán los módulos dinámicamente -->
-  <section class="modulo">
-    <form class="info-form grid">
 
-    <div class="form-group">
-      <label>Nombre completo</label>
-      <input type="text" value=" " disabled>
-    </div>
+          <!-- Módulo inicial cargado por defecto -->
+          <section class="modulo">
+            <form class="info-form grid">
 
-    <div class="form-group">
-      <label>Edad</label>
-      <input type="number" disabled>
-    </div>
+              <div class="form-group">
+                <label>Nombre completo</label>
+                <input type="text" value="" disabled>
+              </div>
 
-    <div class="form-group">
-      <label>Grupo sanguíneo</label>
-      <input type="text" value=" " disabled>
-    </div>
+              <div class="form-group">
+                <label>Edad</label>
+                <input type="number" disabled>
+              </div>
 
-    <div class="form-group span-2">
-      <label>Enfermedades de base</label>
-      <textarea rows="2" disabled> </textarea>
-    </div>
+              <div class="form-group">
+                <label>Grupo sanguíneo</label>
+                <input type="text" value="" disabled>
+              </div>
 
-    <div class="form-group span-2">
-      <label>Alergias</label>
-      <textarea rows="2" disabled> </textarea>
-    </div>
+              <div class="form-group span-2">
+                <label>Enfermedades de base</label>
+                <textarea rows="2" disabled></textarea>
+              </div>
 
-    <div class="form-group span-2">
-      <label>Medicamentos</label>
-      <textarea rows="2" disabled> </textarea>
-    </div>
+              <div class="form-group span-2">
+                <label>Alergias</label>
+                <textarea rows="2" disabled></textarea>
+              </div>
 
-    <div class="botonera">
-      <button type="button" class="btn" onclick="cargarModulo('modulos/editar_informacion.html')">
-        Editar la información
-      </button>
-    </div>
-  </form>
+              <div class="form-group span-2">
+                <label>Medicamentos</label>
+                <textarea rows="2" disabled></textarea>
+              </div>
 
-  <p class="nota">
-    Esta información se mostrará al escanear tu código QR. Solo puede ser editada en la siguiente sección.
-  </p>
-</section>
+              <!-- Botón que carga el submódulo de edición -->
+              <div class="botonera">
+                <button type="button" class="btn" onclick="cargarModulo('modulos/editar_informacion.html')">
+                  Editar la información
+                </button>
+              </div>
 
-  <!-- ⚙️ Script principal -->
+            </form>
+
+            <!-- Nota informativa del módulo -->
+            <p class="nota">
+              Esta información se mostrará al escanear tu código QR.
+              Solo puede ser editada en la siguiente sección.
+            </p>
+          </section>
+
+        </div>
+      </section>
+
+    </main>
+    <!-- =================== FIN MAIN CONTENT =================== -->
+
+  </div>
+
+  <!-- Script principal que controla:
+       - Cambio de roles
+       - Permisos por módulo
+       - Carga dinámica de contenido -->
   <script src="dashboard.js"></script>
+
 </body>
 </html>
+
