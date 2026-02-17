@@ -1,7 +1,12 @@
-// ==============================
-// Menú lateral (modo responsive)
-// ==============================
+// =======================================================
+// DASHBOARD PILD - CONTROL GENERAL DEL SISTEMA
+// =======================================================
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  // ===================================================
+  // 🔹 1. MENÚ RESPONSIVE (ABRIR / CERRAR SIDEBAR)
+  // ===================================================
   const toggleBtn = document.getElementById("toggle-btn");
   const sidebar = document.getElementById("sidebar");
 
@@ -10,143 +15,161 @@ document.addEventListener("DOMContentLoaded", () => {
       sidebar.classList.toggle("active");
     });
   }
-});
 
-// ==============================
-// Simulación de cierre de sesión
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
+  // ===================================================
+  // 🔹 2. CIERRE DE SESIÓN (SIMULADO)
+  // ===================================================
   const logoutLink = document.querySelector(".logout");
-  if (!logoutLink) return;
 
-  logoutLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    sessionStorage.clear();
-    localStorage.clear();
-    alert("Sesión cerrada correctamente");
-    location.reload();
-  });
+  if (logoutLink) {
+    logoutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // Limpiar almacenamiento
+      sessionStorage.clear();
+      localStorage.clear();
+
+      alert("Sesión cerrada correctamente");
+
+      // Recargar página
+      location.reload();
+    });
+  }
+
+  // ===================================================
+  // 🔹 3. CONTROL DE ROLES (Usuario / Cuidador)
+  // ===================================================
+  const selectorRol = document.getElementById("selector-rol");
+  const userRoleSpan = document.getElementById("user-role");
+
+  if (selectorRol && userRoleSpan) {
+
+    // Obtener rol guardado o usar "usuario" por defecto
+    const rolGuardado = localStorage.getItem("rolActivo") || "usuario";
+
+    // Asignar valores iniciales
+    selectorRol.value = rolGuardado;
+    userRoleSpan.textContent = capitalizarTexto(rolGuardado);
+
+    // Aplicar permisos al cargar la página
+    aplicarPermisosMenu(rolGuardado);
+
+    // Detectar cambio en el selector
+    selectorRol.addEventListener("change", () => {
+
+      const nuevoRol = selectorRol.value;
+
+      // Guardar rol seleccionado
+      localStorage.setItem("rolActivo", nuevoRol);
+
+      // Actualizar texto del rol en el avatar
+      userRoleSpan.textContent = capitalizarTexto(nuevoRol);
+
+      // Aplicar permisos nuevamente
+      aplicarPermisosMenu(nuevoRol);
+
+      // Volver al módulo inicio al cambiar de rol
+      cargarModulo("modulos/inicio.html");
+    });
+  }
+
+  // ===================================================
+  // 🔹 4. CARGAR MÓDULO INICIAL
+  // ===================================================
+  cargarModulo("modulos/inicio.html");
+
 });
 
-// ==============================
-// Cargar módulos dinámicamente
-// ==============================
+
+// =======================================================
+// 🔹 FUNCIÓN: APLICAR PERMISOS SEGÚN ROL
+// =======================================================
+function aplicarPermisosMenu(rolActivo) {
+
+  // Obtener todos los elementos del menú
+  const itemsMenu = document.querySelectorAll(".menu li");
+
+  // Definir permisos por rol usando data-modulo
+  const permisos = {
+
+    usuario: [
+      "inicio",
+      "info_medica",
+      "contactos",
+      "qr",
+      "ajustes"
+    ],
+
+    cuidador: [
+      "inicio",
+      "pacientes",
+      "solicitudes",
+      "contactos",
+      "ajustes"
+    ]
+  };
+
+  itemsMenu.forEach(item => {
+
+    const modulo = item.dataset.modulo;
+
+    if (!modulo) return;
+
+    // Verificar si el módulo está permitido para el rol activo
+    if (permisos[rolActivo].includes(modulo)) {
+      item.classList.remove("oculto");
+    } else {
+      item.classList.add("oculto");
+    }
+  });
+}
+
+
+// =======================================================
+// 🔹 FUNCIÓN: CARGAR MÓDULOS DINÁMICAMENTE
+// =======================================================
 function cargarModulo(ruta) {
+
   const contenedor = document.getElementById("contenido-dinamico");
-  const searchBar = document.querySelector(".search-bar");
-  const userAvatar = document.querySelector(".user-avatar");
 
   if (!contenedor) {
-    console.error("⚠️ No se encontró el contenedor con id='contenido-dinamico'");
+    console.error("No se encontró el contenedor dinámico.");
     return;
   }
 
   fetch(ruta)
     .then(res => {
-      if (!res.ok) throw new Error(`Error al obtener el módulo: ${res.status}`);
+      if (!res.ok) throw new Error("No se pudo cargar el módulo.");
       return res.text();
     })
     .then(html => {
+
+      // Pequeña transición visual
       contenedor.style.opacity = 0;
 
       setTimeout(() => {
         contenedor.innerHTML = html;
         contenedor.style.opacity = 1;
         window.scrollTo(0, 0);
-
-        // Control de visibilidad general
-        const esInicio = ruta.includes("inicio");
-        const esInfoMedica = ruta.includes("mi_informacion_medica");
-
-        if (esInicio) {
-          searchBar?.classList.remove("oculto");
-          userAvatar?.classList.remove("oculto");
-        } else {
-          searchBar?.classList.add("oculto");
-          userAvatar?.classList.add("oculto");
-        }
-
-        // Ajuste visual del módulo de información médica
-        if (esInfoMedica) {
-          const modulo = contenedor.querySelector(".modulo");
-          if (modulo) {
-            modulo.classList.add("layout-ancho");
-            modulo.style.display = "block";
-            modulo.style.margin = "2rem auto";
-            modulo.style.maxWidth = "1200px";
-            modulo.style.width = "90%";
-          }
-        }
-
-        // Ejecutar scripts incluidos en el HTML cargado
-        const scripts = contenedor.querySelectorAll("script");
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement("script");
-          if (oldScript.src) {
-            newScript.src = oldScript.src;
-          } else {
-            newScript.textContent = oldScript.textContent;
-          }
-          document.body.appendChild(newScript);
-          oldScript.remove();
-        });
       }, 200);
+
     })
-    .catch(err => {
+    .catch(error => {
+
       contenedor.innerHTML = `
         <p style="color:red; padding:1rem;">
-          ❌ No se pudo cargar el módulo.<br>${err.message}
-        </p>`;
-      console.error(err);
+          ❌ Error al cargar el módulo.
+        </p>
+      `;
+
+      console.error(error);
     });
 }
 
-// ==============================
-// Ver información médica (solo lectura)
-// ==============================
-function verInfoMedica(event) {
-  event.preventDefault(); // evita recarga del <a>
 
-  sessionStorage.setItem("modoInfoMedica", "solo-lectura");
-  cargarModulo("modulos/mi_informacion_medica.html");
-}
-
-// ==============================
-// Módulo inicial (Inicio)
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
-  cargarModulo("modulos/inicio.html");
-});
-// ==============================
-// Cambio de rol (Usuario / Cuidador)
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
-  const selectorRol = document.getElementById("selector-rol");
-  const userRoleSpan = document.getElementById("user-role");
-
-  if (!selectorRol || !userRoleSpan) return;
-
-  // Cargar rol guardado o valor por defecto
-  const rolGuardado = localStorage.getItem("rolActivo") || selectorRol.value;
-  selectorRol.value = rolGuardado;
-  userRoleSpan.textContent = capitalizarRol(rolGuardado);
-
-  // Escuchar cambios
-  selectorRol.addEventListener("change", () => {
-    const nuevoRol = selectorRol.value;
-
-    // Guardar rol
-    localStorage.setItem("rolActivo", nuevoRol);
-
-    // Mostrar rol en el avatar
-    userRoleSpan.textContent = capitalizarRol(nuevoRol);
-
-    // (opcional) Recargar inicio al cambiar rol
-    cargarModulo("modulos/inicio.html");
-  });
-});
-
-// Utilidad
-function capitalizarRol(rol) {
-  return rol.charAt(0).toUpperCase() + rol.slice(1);
+// =======================================================
+// 🔹 FUNCIÓN AUXILIAR: CAPITALIZAR TEXTO
+// =======================================================
+function capitalizarTexto(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
